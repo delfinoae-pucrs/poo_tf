@@ -6,6 +6,8 @@
 package br.com.pootrabalhofinal.model;
 
 import br.com.pootrabalhofinal.utils.Range;
+import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  *
@@ -15,6 +17,10 @@ public class Central {
     private String identifier;
     private int processorsQuantity;
     private Range processorsTimeInterval;
+    
+    private ArrayList<Antenna> antennas;
+    
+    private Stack<Message> messages = new Stack<>();
     
     /**
      * Constructor
@@ -54,6 +60,22 @@ public class Central {
 
     public void setProcessorsTimeInterval(Range processorsTimeInterval) {
         this.processorsTimeInterval = processorsTimeInterval;
+    }
+
+    public ArrayList<Antenna> getAntennas() {
+        return antennas;
+    }
+
+    public void setAntennas(ArrayList<Antenna> antennas) {
+        this.antennas = antennas;
+    }
+
+    public Stack<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Stack<Message> messages) {
+        this.messages = messages;
     }
     
 }

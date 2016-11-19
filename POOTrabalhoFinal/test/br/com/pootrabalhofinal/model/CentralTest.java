@@ -6,6 +6,8 @@
 package br.com.pootrabalhofinal.model;
 
 import br.com.pootrabalhofinal.utils.Range;
+import java.util.ArrayList;
+import java.util.Stack;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -115,6 +117,60 @@ public class CentralTest {
         Range processorsTimeInterval = null;
         Central instance = null;
         instance.setProcessorsTimeInterval(processorsTimeInterval);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getAntennas method, of class Central.
+     */
+    @Test
+    public void testGetAntennas() {
+        System.out.println("getAntennas");
+        Central instance = null;
+        ArrayList<Antenna> expResult = null;
+        ArrayList<Antenna> result = instance.getAntennas();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setAntennas method, of class Central.
+     */
+    @Test
+    public void testSetAntennas() {
+        System.out.println("setAntennas");
+        ArrayList<Antenna> antennas = null;
+        Central instance = null;
+        instance.setAntennas(antennas);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getMessages method, of class Central.
+     */
+    @Test
+    public void testGetMessages() {
+        System.out.println("getMessages");
+        Central instance = null;
+        Stack<Message> expResult = null;
+        Stack<Message> result = instance.getMessages();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setMessages method, of class Central.
+     */
+    @Test
+    public void testSetMessages() {
+        System.out.println("setMessages");
+        Stack<Message> messages = null;
+        Central instance = null;
+        instance.setMessages(messages);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

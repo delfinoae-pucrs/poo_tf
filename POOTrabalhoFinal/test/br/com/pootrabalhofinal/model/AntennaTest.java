@@ -7,6 +7,7 @@ package br.com.pootrabalhofinal.model;
 
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
+import java.util.Queue;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -170,6 +171,33 @@ public class AntennaTest {
         ArrayList<Phone> phones = null;
         Antenna instance = null;
         instance.setPhones(phones);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getMessages method, of class Antenna.
+     */
+    @Test
+    public void testGetMessages() {
+        System.out.println("getMessages");
+        Antenna instance = null;
+        Queue<Message> expResult = null;
+        Queue<Message> result = instance.getMessages();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setMessages method, of class Antenna.
+     */
+    @Test
+    public void testSetMessages() {
+        System.out.println("setMessages");
+        Queue<Message> messages = null;
+        Antenna instance = null;
+        instance.setMessages(messages);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

@@ -7,6 +7,8 @@ package br.com.pootrabalhofinal.model;
 
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -19,6 +21,8 @@ public class Antenna {
     
     private Central central;
     private ArrayList<Phone> phones;
+    
+    private Queue<Message> messages = new LinkedList<>();
     
     /**
      * Constructor
@@ -76,6 +80,14 @@ public class Antenna {
 
     public void setPhones(ArrayList<Phone> phones) {
         this.phones = phones;
+    }
+
+    public Queue<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Queue<Message> messages) {
+        this.messages = messages;
     }
     
 }
