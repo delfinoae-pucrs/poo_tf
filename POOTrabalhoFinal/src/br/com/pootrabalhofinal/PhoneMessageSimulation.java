@@ -57,7 +57,7 @@ public class PhoneMessageSimulation extends Application {
         grid.add(btnSetup,      0, 2);
         grid.add(btnRun,        0, 3);
         
-        Scene scene = new Scene(grid, 300, 200);
+        Scene scene = new Scene(grid, 400, 200);
         this.primaryStage.setTitle("Simulador de Mensagens entre Telefone Celulares");
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
