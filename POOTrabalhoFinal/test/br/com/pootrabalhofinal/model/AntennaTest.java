@@ -44,14 +44,17 @@ public class AntennaTest {
      * Test of getAttendanceTimeInterval method, of class Antenna.
      */
     @Test
+    
     public void testGetAttendanceTimeInterval() {
         System.out.println("getAttendanceTimeInterval");
-        Antenna instance = null;
-        Range expResult = null;
+        Range attendanceTimeInterval = new Range(0,5);
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        Central c = new Central(identifierCentral, 5, attendanceTimeInterval);
+        Antenna instance = new Antenna(identifierAntenna, 5, attendanceTimeInterval,c);
+        Range expResult = attendanceTimeInterval;
         Range result = instance.getAttendanceTimeInterval();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -60,11 +63,14 @@ public class AntennaTest {
     @Test
     public void testSetAttendanceTimeInterval() {
         System.out.println("setAttendanceTimeInterval");
-        Range attendanceTimeInterval = null;
-        Antenna instance = null;
-        instance.setAttendanceTimeInterval(attendanceTimeInterval);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Range attendanceTimeInterval = new Range(10,50);
+        Range otherRange = new Range(5,8);        
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        Central c = new Central(identifierCentral, 5, attendanceTimeInterval);
+        Antenna instance = new Antenna(identifierAntenna, 5, attendanceTimeInterval,c);
+        instance.setAttendanceTimeInterval(otherRange);
+        assertEquals(instance.getAttendanceTimeInterval(),otherRange);
     }
 
     /**
@@ -73,12 +79,15 @@ public class AntennaTest {
     @Test
     public void testGetIdentifier() {
         System.out.println("getIdentifier");
-        Antenna instance = null;
-        String expResult = "";
+        Range attendanceTimeInterval = new Range(10,50);
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        String expResult = "Antenna 1";
+        Central c = new Central(identifierCentral, 5, attendanceTimeInterval);
+        Antenna instance = new Antenna(identifierAntenna, 5, attendanceTimeInterval,c);
+
         String result = instance.getIdentifier();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -87,11 +96,13 @@ public class AntennaTest {
     @Test
     public void testSetIdentifier() {
         System.out.println("setIdentifier");
-        String identifier = "";
-        Antenna instance = null;
+        String identifier = "Anntena 3";
+   
+        Range attendanceTimeInterval = new Range(10,50);       
+        Central c = new Central("Central 1", 5, attendanceTimeInterval);
+        Antenna instance = new Antenna("Antenna 1", 5, attendanceTimeInterval,c);
         instance.setIdentifier(identifier);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
