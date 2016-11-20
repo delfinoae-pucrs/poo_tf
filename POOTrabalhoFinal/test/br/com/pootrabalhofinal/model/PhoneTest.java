@@ -5,6 +5,7 @@
  */
 package br.com.pootrabalhofinal.model;
 
+import br.com.pootrabalhofinal.utils.Range;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,22 +18,22 @@ import static org.junit.Assert.*;
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
 public class PhoneTest {
-    
+
     public PhoneTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -43,12 +44,19 @@ public class PhoneTest {
     @Test
     public void testGetAntenna() {
         System.out.println("getAntenna");
-        Phone instance = null;
-        Antenna expResult = null;
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        String identifierPhone = "Phone 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna ant = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        Phone instance = new Phone(identifierPhone, ant);
+
+        Antenna expResult = ant;
         Antenna result = instance.getAntenna();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,11 +65,19 @@ public class PhoneTest {
     @Test
     public void testSetAntenna() {
         System.out.println("setAntenna");
-        Antenna antenna = null;
-        Phone instance = null;
-        instance.setAntenna(antenna);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        String identifierPhone = "Phone 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna ant = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        Phone instance = new Phone(identifierPhone, ant);
+        
+        Antenna otherAntenna = new Antenna("Antenna 3", 3, new Range(2,6),c);
+        instance.setAntenna(otherAntenna);
+        assertEquals(instance.getAntenna(),otherAntenna);
     }
 
     /**
@@ -70,12 +86,19 @@ public class PhoneTest {
     @Test
     public void testGetIdentifier() {
         System.out.println("getIdentifier");
-        Phone instance = null;
-        String expResult = "";
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        String identifierPhone = "Phone 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna ant = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        Phone instance = new Phone(identifierPhone, ant);
+        
+        String expResult = "Phone 1";
         String result = instance.getIdentifier();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -90,5 +113,5 @@ public class PhoneTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }
