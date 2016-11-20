@@ -20,22 +20,22 @@ import static org.junit.Assert.*;
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
 public class CentralTest {
-    
+
     public CentralTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -48,9 +48,9 @@ public class CentralTest {
         System.out.println("getIdentifier");
         String centralIdentifier = "Central 1";
         int centralprocessorsQuantity = 5;
-        Range centralProcessorsTimeInterval = new Range(0,5);
+        Range centralProcessorsTimeInterval = new Range(0, 5);
         Central instance = new Central(centralIdentifier, centralprocessorsQuantity, centralProcessorsTimeInterval);
-        
+
         String expResult = "Central 1";
         String result = instance.getIdentifier();
         assertEquals(expResult, result);
@@ -62,14 +62,14 @@ public class CentralTest {
     @Test
     public void testSetIdentifier() {
         System.out.println("setIdentifier");
-        String centralIdentifier = "Central 1";        
+        String centralIdentifier = "Central 1";
         int centralprocessorsQuantity = 5;
-        Range centralProcessorsTimeInterval = new Range(0,5);
+        Range centralProcessorsTimeInterval = new Range(0, 5);
         Central instance = new Central(centralIdentifier, centralprocessorsQuantity, centralProcessorsTimeInterval);
-        
+
         String newIdentifier = "Central 3";
         instance.setIdentifier(newIdentifier);
-        assertEquals(instance.getIdentifier(),newIdentifier);
+        assertEquals(instance.getIdentifier(), newIdentifier);
     }
 
     /**
@@ -78,10 +78,11 @@ public class CentralTest {
     @Test
     public void testGetProcessorsQuantity() {
         System.out.println("getProcessorsQuantity");
-        String centralIdentifier = "Central 1";        
+        String centralIdentifier = "Central 1";
         int centralprocessorsQuantity = 5;
-        Range centralProcessorsTimeInterval = new Range(0,5);
+        Range centralProcessorsTimeInterval = new Range(0, 5);
         Central instance = new Central(centralIdentifier, centralprocessorsQuantity, centralProcessorsTimeInterval);
+
         int expResult = 5;
         int result = instance.getProcessorsQuantity();
         assertEquals(expResult, result);
@@ -93,11 +94,14 @@ public class CentralTest {
     @Test
     public void testSetProcessorsQuantity() {
         System.out.println("setProcessorsQuantity");
-        int processorsQuantity = 0;
-        Central instance = null;
-        instance.setProcessorsQuantity(processorsQuantity);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String centralIdentifier = "Central 1";
+        int centralprocessorsQuantity = 5;
+        Range centralProcessorsTimeInterval = new Range(0, 5);
+        Central instance = new Central(centralIdentifier, centralprocessorsQuantity, centralProcessorsTimeInterval);
+
+        int newProcessorsQuantity = 10;
+        instance.setProcessorsQuantity(newProcessorsQuantity);
+        assertEquals(instance.getProcessorsQuantity(), newProcessorsQuantity);
     }
 
     /**
@@ -106,12 +110,14 @@ public class CentralTest {
     @Test
     public void testGetProcessorsTimeInterval() {
         System.out.println("getProcessorsTimeInterval");
-        Central instance = null;
-        Range expResult = null;
+        String centralIdentifier = "Central 1";
+        int centralprocessorsQuantity = 5;
+        Range centralProcessorsTimeInterval = new Range(0, 5);
+        Central instance = new Central(centralIdentifier, centralprocessorsQuantity, centralProcessorsTimeInterval);
+
+        Range expResult = centralProcessorsTimeInterval;
         Range result = instance.getProcessorsTimeInterval();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -120,11 +126,14 @@ public class CentralTest {
     @Test
     public void testSetProcessorsTimeInterval() {
         System.out.println("setProcessorsTimeInterval");
-        Range processorsTimeInterval = null;
-        Central instance = null;
-        instance.setProcessorsTimeInterval(processorsTimeInterval);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String centralIdentifier = "Central 1";
+        int centralprocessorsQuantity = 5;
+        Range centralProcessorsTimeInterval = new Range(0, 5);
+        Central instance = new Central(centralIdentifier, centralprocessorsQuantity, centralProcessorsTimeInterval);
+
+        Range otherRange = new Range(3, 8);
+        instance.setProcessorsTimeInterval(otherRange);
+        assertEquals(instance.getProcessorsTimeInterval(), otherRange);
     }
 
     /**
@@ -180,5 +189,5 @@ public class CentralTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }
