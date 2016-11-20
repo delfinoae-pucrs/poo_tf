@@ -94,12 +94,22 @@ public class EventTest {
     @Test
     public void testGetDestinationPhone() {
         System.out.println("getDestinationPhone");
-        Event instance = null;
-        Phone expResult = null;
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;        
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna ant = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c); 
+        String phoneName1 = "Phone 1";
+        String phoneName2 = "Phone 2";
+        Phone phone1 = new Phone(phoneName1, ant);
+        Phone phone2 = new Phone(phoneName2, ant);
+        
+        Event instance = new Event(phone1, phone2);
+        Phone expResult = phone2;
         Phone result = instance.getDestinationPhone();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -108,11 +118,23 @@ public class EventTest {
     @Test
     public void testSetDestinationPhone() {
         System.out.println("setDestinationPhone");
-        Phone destinationPhone = null;
-        Event instance = null;
-        instance.setDestinationPhone(destinationPhone);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;        
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna ant = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c); 
+        String phoneName1 = "Phone 1";
+        String phoneName2 = "Phone 2";
+        String phoneNameOrigin = "Phone 3";
+        Phone phone1 = new Phone(phoneName1, ant);
+        Phone phone2 = new Phone(phoneName2, ant);
+        Event instance = new Event(phone1, phone2);
+        
+        Phone otherPhoneOrigin = new Phone(phoneNameOrigin, ant);
+        instance.setDestinationPhone(otherPhoneOrigin);
+        assertEquals(instance.getDestinationPhone(), otherPhoneOrigin);
     }
     
 }
