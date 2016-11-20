@@ -45,12 +45,14 @@ public class SimulationTest {
     @Test
     public void testGetName() {
         System.out.println("getName");
-        Simulation instance = null;
-        String expResult = "";
+        String name = "Simulation";
+        int duration = 50;
+        Range range = new Range(3,8);       
+        Simulation instance = new Simulation(name, duration, range);
+        
+        String expResult = "Simulation";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -59,11 +61,14 @@ public class SimulationTest {
     @Test
     public void testSetName() {
         System.out.println("setName");
-        String name = "";
-        Simulation instance = null;
-        instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String name = "Simulation";
+        int duration = 50;
+        Range range = new Range(3,8);       
+        Simulation instance = new Simulation(name, duration, range);
+        
+        String otherName = "Simulation 2";        
+        instance.setName(otherName);
+        assertEquals(instance.getName(), otherName);
     }
 
     /**
@@ -72,12 +77,15 @@ public class SimulationTest {
     @Test
     public void testGetDuration() {
         System.out.println("getDuration");
-        Simulation instance = null;
-        int expResult = 0;
+        String name = "Simulation";
+        int duration = 50;
+        Range range = new Range(3,8);       
+        Simulation instance = new Simulation(name, duration, range);
+        
+        int expResult = 50;
         int result = instance.getDuration();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -86,11 +94,14 @@ public class SimulationTest {
     @Test
     public void testSetDuration() {
         System.out.println("setDuration");
-        int duration = 0;
-        Simulation instance = null;
-        instance.setDuration(duration);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String name = "Simulation";
+        int duration = 50;
+        Range range = new Range(3,8);       
+        Simulation instance = new Simulation(name, duration, range);
+        
+        int newDuration = 30;
+        instance.setDuration(newDuration);
+        assertEquals(instance.getDuration(), newDuration);
     }
 
     /**
