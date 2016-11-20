@@ -7,6 +7,7 @@ package br.com.pootrabalhofinal.model;
 
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -92,6 +93,7 @@ public class AntennaTest {
         int queueCapacityCentral = 4;
         Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
         String result = instance.getIdentifier();
         assertEquals(expResult, result);
     }
@@ -110,6 +112,7 @@ public class AntennaTest {
         int queueCapacityCentral = 4;
         Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
         instance.setIdentifier(newIdentifier);
         String expResult = "Anntena 3";
         assertEquals(expResult, instance.getIdentifier());
@@ -124,10 +127,11 @@ public class AntennaTest {
         String identifierCentral = "Central 1";
         String identifierAntenna = "Antenna 1";
         Range attendanceTimeInterval = new Range(10, 50);
-        int queueCapacityAntenna = 5;
+        int queueCapacityAntenna = 10;
         int queueCapacityCentral = 4;
         Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
         int expResult = 10;
         int result = instance.getQueueCapacity();
         assertEquals(expResult, result);
@@ -147,6 +151,7 @@ public class AntennaTest {
         int newQueueCapacityAntenna = 6;
         Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
         instance.setQueueCapacity(newQueueCapacityAntenna);
         assertEquals(Integer.valueOf(instance.getQueueCapacity()), Integer.valueOf(newQueueCapacityAntenna));
 
@@ -165,6 +170,7 @@ public class AntennaTest {
         int queueCapacityCentral = 4;
         Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
         Central expResult = c;
         Central result = instance.getCentral();
         assertEquals(expResult, result);
@@ -184,6 +190,7 @@ public class AntennaTest {
         Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
         Central central2 = new Central (identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        
         instance.setCentral(central2);
         assertEquals(instance.getCentral(),central2);
     }
@@ -194,12 +201,18 @@ public class AntennaTest {
     @Test
     public void testGetPhones() {
         System.out.println("getPhones");
-        Antenna instance = null;
-        ArrayList<Phone> expResult = null;
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
+        ArrayList<Phone> expResult = new ArrayList<>();
         ArrayList<Phone> result = instance.getPhones();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -208,11 +221,17 @@ public class AntennaTest {
     @Test
     public void testSetPhones() {
         System.out.println("setPhones");
-        ArrayList<Phone> phones = null;
-        Antenna instance = null;
+        ArrayList<Phone> phones = new ArrayList<>();
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
         instance.setPhones(phones);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getPhones(), phones);
     }
 
     /**
@@ -221,12 +240,16 @@ public class AntennaTest {
     @Test
     public void testGetMessages() {
         System.out.println("getMessages");
-        Antenna instance = null;
-        Queue<Message> expResult = null;
-        Queue<Message> result = instance.getMessages();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;
+        
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c); 
+        Queue<Message> result = new LinkedList<>();                
+        assertEquals(result, instance.getMessages()); 
     }
 
     /**
@@ -235,11 +258,20 @@ public class AntennaTest {
     @Test
     public void testSetMessages() {
         System.out.println("setMessages");
-        Queue<Message> messages = null;
-        Antenna instance = null;
-        instance.setMessages(messages);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;
+        Queue<Message> otherQueue = new LinkedList<Message>();
+        
+        
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c); 
+        instance.setMessages(otherQueue);
+        assertEquals(instance.getMessages(),otherQueue);
+        
+
     }
 
 }
