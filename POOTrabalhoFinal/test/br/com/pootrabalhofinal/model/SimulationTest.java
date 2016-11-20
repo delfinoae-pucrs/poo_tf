@@ -110,12 +110,12 @@ public class SimulationTest {
     @Test
     public void testGetMessageQuantityInterval() {
         System.out.println("getMessageQuantityInterval");
-        Simulation instance = null;
-        Range expResult = null;
-        Range result = instance.getMessageQuantityInterval();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String name = "Simulation";
+        int duration = 50;
+        Range range = new Range(3,8);       
+        Simulation instance = new Simulation(name, duration, range);
+        Range result = range;
+        assertEquals(result, instance.getMessageQuantityInterval());        
     }
 
     /**
@@ -124,11 +124,14 @@ public class SimulationTest {
     @Test
     public void testSetMessageQuantityInterval() {
         System.out.println("setMessageQuantityInterval");
-        Range messageQuantityInterval = null;
-        Simulation instance = null;
-        instance.setMessageQuantityInterval(messageQuantityInterval);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String name = "Simulation";
+        int duration = 50;
+        Range range = new Range(3,8);       
+        Simulation instance = new Simulation(name, duration, range);
+        
+        Range otherRange = new Range(2,9);
+        instance.setMessageQuantityInterval(otherRange);
+        assertEquals(instance.getMessageQuantityInterval(), otherRange);
     }
 
     /**
