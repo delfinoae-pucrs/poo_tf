@@ -107,11 +107,19 @@ public class PhoneTest {
     @Test
     public void testSetIdentifier() {
         System.out.println("setIdentifier");
-        String identifier = "";
-        Phone instance = null;
-        instance.setIdentifier(identifier);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String identifierCentral = "Central 1";
+        String identifierAntenna = "Antenna 1";
+        String identifierPhone = "Phone 1";
+        Range attendanceTimeInterval = new Range(10, 50);
+        int queueCapacityAntenna = 5;
+        int queueCapacityCentral = 4;
+        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna ant = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        Phone instance = new Phone(identifierPhone, ant);
+        
+        String newIdentifier = "Phone 3";
+        instance.setIdentifier(newIdentifier);
+        assertEquals(instance.getIdentifier(), newIdentifier);
     }
 
 }
