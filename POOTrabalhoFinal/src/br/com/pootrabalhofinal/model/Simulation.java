@@ -18,7 +18,7 @@ public class Simulation {
     private Range messageQuantityInterval;
     
     private Central central;
-    private ArrayList<Event> events;
+    private ArrayList<Event> events = new ArrayList<>();
     
     /**
      * Constructor
@@ -31,6 +31,15 @@ public class Simulation {
         this.name = name;
         this.duration = duration;
         this.messageQuantityInterval = messageQuantityInterval;
+    }
+    
+    /**
+     * Add event to list
+     * 
+     * @param event event to add
+     */
+    public void addEvent(Event event) {
+        getEvents().add(event);
     }
     
     /*

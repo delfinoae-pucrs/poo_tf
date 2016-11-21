@@ -6,6 +6,7 @@
 package br.com.pootrabalhofinal.model;
 
 import br.com.pootrabalhofinal.utils.MessageStatus;
+import br.com.pootrabalhofinal.utils.Range;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,19 +38,40 @@ public class MessageTest {
     @After
     public void tearDown() {
     }
-
+    
+    /**
+     * Test of Message constructor, of class Message
+     */
+    @Test
+    public void testMessage() {
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        assertNotNull(message);
+    }
+    
     /**
      * Test of getOriginPhone method, of class Message.
      */
     @Test
     public void testGetOriginPhone() {
         System.out.println("getOriginPhone");
-        Message instance = new Message();
-        Phone expResult = null;
-        Phone result = instance.getOriginPhone();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        assertEquals(message.getOriginPhone(), originPhone);
     }
 
     /**
@@ -58,11 +80,17 @@ public class MessageTest {
     @Test
     public void testSetOriginPhone() {
         System.out.println("setOriginPhone");
-        Phone originPhone = null;
-        Message instance = new Message();
-        instance.setOriginPhone(originPhone);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(destinationPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        message.setOriginPhone(originPhone);
+        
+        assertEquals(message.getOriginPhone(), originPhone);
     }
 
     /**
@@ -71,12 +99,16 @@ public class MessageTest {
     @Test
     public void testGetDestinationPhone() {
         System.out.println("getDestinationPhone");
-        Message instance = new Message();
-        Phone expResult = null;
-        Phone result = instance.getDestinationPhone();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        assertEquals(message.getDestinationPhone(), destinationPhone);
     }
 
     /**
@@ -85,11 +117,17 @@ public class MessageTest {
     @Test
     public void testSetDestinationPhone() {
         System.out.println("setDestinationPhone");
-        Phone destinationPhone = null;
-        Message instance = new Message();
-        instance.setDestinationPhone(destinationPhone);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, originPhone, MessageStatus.SUCCESSFUL);
+        message.setDestinationPhone(destinationPhone);
+        
+        assertEquals(message.getDestinationPhone(), destinationPhone);
     }
 
     /**
@@ -98,12 +136,16 @@ public class MessageTest {
     @Test
     public void testGetStatus() {
         System.out.println("getStatus");
-        Message instance = new Message();
-        MessageStatus expResult = null;
-        MessageStatus result = instance.getStatus();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        assertEquals(message.getStatus(), MessageStatus.SUCCESSFUL);
     }
 
     /**
@@ -112,11 +154,17 @@ public class MessageTest {
     @Test
     public void testSetStatus() {
         System.out.println("setStatus");
-        MessageStatus status = null;
-        Message instance = new Message();
-        instance.setStatus(status);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        message.setStatus(MessageStatus.FAILURE_DELIVERED);
+        
+        assertEquals(message.getStatus(), MessageStatus.FAILURE_DELIVERED);
     }
     
 }

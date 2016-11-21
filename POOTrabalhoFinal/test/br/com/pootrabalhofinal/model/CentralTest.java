@@ -5,6 +5,7 @@
  */
 package br.com.pootrabalhofinal.model;
 
+import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -39,13 +40,24 @@ public class CentralTest {
     @After
     public void tearDown() {
     }
-
+    
+    /**
+     * Test of Central constructor, of class Central
+     */
+    @Test
+    public void testCentral() {
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        assertNotNull(central);
+    }
+    
     /**
      * Test of getIdentifier method, of class Central.
      */
     @Test
     public void testGetIdentifier() {
         System.out.println("getIdentifier");
+        
         String centralIdentifier = "Central 1";
         int centralprocessorsQuantity = 5;
         Range centralProcessorsTimeInterval = new Range(0, 5);
@@ -53,7 +65,8 @@ public class CentralTest {
 
         String expResult = "Central 1";
         String result = instance.getIdentifier();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -69,6 +82,7 @@ public class CentralTest {
 
         String newIdentifier = "Central 3";
         instance.setIdentifier(newIdentifier);
+        
         assertEquals(instance.getIdentifier(), newIdentifier);
     }
 
@@ -85,7 +99,8 @@ public class CentralTest {
 
         int expResult = 5;
         int result = instance.getProcessorsQuantity();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -101,6 +116,7 @@ public class CentralTest {
 
         int newProcessorsQuantity = 10;
         instance.setProcessorsQuantity(newProcessorsQuantity);
+        
         assertEquals(instance.getProcessorsQuantity(), newProcessorsQuantity);
     }
 
@@ -117,7 +133,8 @@ public class CentralTest {
 
         Range expResult = centralProcessorsTimeInterval;
         Range result = instance.getProcessorsTimeInterval();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -133,6 +150,7 @@ public class CentralTest {
 
         Range otherRange = new Range(3, 8);
         instance.setProcessorsTimeInterval(otherRange);
+        
         assertEquals(instance.getProcessorsTimeInterval(), otherRange);
     }
 
@@ -142,12 +160,17 @@ public class CentralTest {
     @Test
     public void testGetAntennas() {
         System.out.println("getAntennas");
-        Central instance = null;
-        ArrayList<Antenna> expResult = null;
-        ArrayList<Antenna> result = instance.getAntennas();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        ArrayList<Antenna> antennas = new ArrayList<>();
+        antennas.add(antenna);
+        
+        central.setAntennas(antennas);
+        
+        assertArrayEquals(antennas.toArray(), central.getAntennas().toArray());
     }
 
     /**
@@ -156,11 +179,17 @@ public class CentralTest {
     @Test
     public void testSetAntennas() {
         System.out.println("setAntennas");
-        ArrayList<Antenna> antennas = null;
-        Central instance = null;
-        instance.setAntennas(antennas);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        ArrayList<Antenna> antennas = new ArrayList<>();
+        antennas.add(antenna);
+        
+        central.setAntennas(antennas);
+        
+        assertArrayEquals(antennas.toArray(), central.getAntennas().toArray());
     }
 
     /**
@@ -169,12 +198,23 @@ public class CentralTest {
     @Test
     public void testGetMessages() {
         System.out.println("getMessages");
-        Central instance = null;
-        Stack<Message> expResult = null;
-        Stack<Message> result = instance.getMessages();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        Stack<Message> messages = new Stack<>();
+        messages.add(message);
+        
+        central.addAntenna(antenna);
+        central.addMessage(message);
+        
+        assertArrayEquals(central.getMessages().toArray(), messages.toArray());
     }
 
     /**
@@ -183,11 +223,55 @@ public class CentralTest {
     @Test
     public void testSetMessages() {
         System.out.println("setMessages");
-        Stack<Message> messages = null;
-        Central instance = null;
-        instance.setMessages(messages);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        Stack<Message> messages = new Stack<>();
+        messages.add(message);
+        
+        central.addAntenna(antenna);
+        central.setMessages(messages);
+        
+        assertArrayEquals(central.getMessages().toArray(), messages.toArray());
     }
-
+    
+    /**
+     * Test of addAntenna method, of class Central.
+     */
+    @Test
+    public void testAddAntenna() {
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        
+        central.addAntenna(antenna);
+        
+        assertEquals(central.getAntennas().get(0), antenna);
+    }
+    
+    /**
+     * Test of addMessage method, of class Central.
+     */
+    @Test
+    public void testAddMessage() {
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        central.addMessage(message);
+        
+        assertEquals(central.getMessages().lastElement(), message);
+    }
 }

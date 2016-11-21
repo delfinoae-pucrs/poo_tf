@@ -18,7 +18,7 @@ public class Central {
     private int processorsQuantity;
     private Range processorsTimeInterval;
     
-    private ArrayList<Antenna> antennas;
+    private ArrayList<Antenna> antennas = new ArrayList<>();
     
     private Stack<Message> messages = new Stack<>();
     
@@ -33,6 +33,24 @@ public class Central {
         this.identifier = identifier;
         this.processorsQuantity = processorsQuantity;
         this.processorsTimeInterval = processorsTimeInterval;
+    }
+    
+    /**
+     * Add an antenna to list
+     * 
+     * @param antenna antenna to add
+     */
+    public void addAntenna(Antenna antenna) {
+        getAntennas().add(antenna);
+    }
+    
+    /**
+     * Add a message to stack
+     * 
+     * @param message message to add
+     */
+    public void addMessage(Message message) {
+        getMessages().add(message);
     }
     
     /*

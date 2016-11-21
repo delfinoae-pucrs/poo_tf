@@ -16,6 +16,19 @@ public class Message {
     private Phone destinationPhone;
     private MessageStatus status;
     
+    /**
+     * Constructor
+     * 
+     * @param originPhone origin phone that sent the message
+     * @param destinationPhone destination phone to send the message
+     * @param status status of message
+     */
+    public Message(Phone originPhone, Phone destinationPhone, MessageStatus status) {
+        this.originPhone = originPhone;
+        this.destinationPhone = destinationPhone;
+        this.status = status;
+    }
+    
     /*
      * Getters and Setters
      */

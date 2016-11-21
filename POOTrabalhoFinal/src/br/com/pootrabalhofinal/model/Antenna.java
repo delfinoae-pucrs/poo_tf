@@ -20,7 +20,7 @@ public class Antenna {
     private Range attendanceTimeInterval;
     
     private Central central;
-    private ArrayList<Phone> phones;
+    private ArrayList<Phone> phones = new ArrayList<>();
     
     private Queue<Message> messages = new LinkedList<>();
     
@@ -37,6 +37,24 @@ public class Antenna {
         this.queueCapacity = queueCapacity;
         this.attendanceTimeInterval = attendanceTimeInterval;
         this.central = central;
+    }
+    
+    /**
+     * Add a phone to list
+     * 
+     * @param phone phone to add
+     */
+    public void addPhone(Phone phone) {
+        getPhones().add(phone);
+    }
+    
+    /**
+     * Add a message to list
+     * 
+     * @param message message to add
+     */
+    public void addMessage(Message message) {
+        getMessages().add(message);
     }
     
     /*

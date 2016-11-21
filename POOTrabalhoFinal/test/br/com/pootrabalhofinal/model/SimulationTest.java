@@ -38,6 +38,16 @@ public class SimulationTest {
     @After
     public void tearDown() {
     }
+    
+    /**
+     * Test of Simulation constructor, of class Simulation
+     */
+    @Test
+    public void testSimulation() {
+        Simulation simulation = new Simulation("Simulação 1", 5, new Range(1, 6));
+        
+        assertNotNull(simulation);
+    }
 
     /**
      * Test of getName method, of class Simulation.
@@ -52,7 +62,8 @@ public class SimulationTest {
         
         String expResult = "Simulation";
         String result = instance.getName();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -68,6 +79,7 @@ public class SimulationTest {
         
         String otherName = "Simulation 2";        
         instance.setName(otherName);
+        
         assertEquals(instance.getName(), otherName);
     }
 
@@ -84,7 +96,8 @@ public class SimulationTest {
         
         int expResult = 50;
         int result = instance.getDuration();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
 
     }
 
@@ -101,6 +114,7 @@ public class SimulationTest {
         
         int newDuration = 30;
         instance.setDuration(newDuration);
+        
         assertEquals(instance.getDuration(), newDuration);
     }
 
@@ -115,6 +129,7 @@ public class SimulationTest {
         Range range = new Range(3,8);       
         Simulation instance = new Simulation(name, duration, range);
         Range result = range;
+        
         assertEquals(result, instance.getMessageQuantityInterval());        
     }
 
@@ -131,6 +146,7 @@ public class SimulationTest {
         
         Range otherRange = new Range(2,9);
         instance.setMessageQuantityInterval(otherRange);
+        
         assertEquals(instance.getMessageQuantityInterval(), otherRange);
     }
 
@@ -140,12 +156,13 @@ public class SimulationTest {
     @Test
     public void testGetCentral() {
         System.out.println("getCentral");
-        Simulation instance = null;
-        Central expResult = null;
-        Central result = instance.getCentral();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Simulation simulation = new Simulation("Simulação 1", 5, new Range(1, 6));
+        simulation.setCentral(central);
+        
+        assertEquals(simulation.getCentral(), central);
     }
 
     /**
@@ -154,11 +171,13 @@ public class SimulationTest {
     @Test
     public void testSetCentral() {
         System.out.println("setCentral");
-        Central central = null;
-        Simulation instance = null;
-        instance.setCentral(central);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Simulation simulation = new Simulation("Simulação 1", 5, new Range(1, 6));
+        simulation.setCentral(central);
+        
+        assertEquals(simulation.getCentral(), central);
     }
 
     /**
@@ -167,12 +186,24 @@ public class SimulationTest {
     @Test
     public void testGetEvents() {
         System.out.println("getEvents");
-        Simulation instance = null;
-        ArrayList<Event> expResult = null;
-        ArrayList<Event> result = instance.getEvents();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Simulation simulation = new Simulation("Simulação 1", 5, new Range(1, 6));
+        simulation.setCentral(central);
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Event event = new Event(originPhone, destinationPhone);
+        
+        ArrayList<Event> events = new ArrayList<>();
+        events.add(event);
+        simulation.addEvent(event);
+        
+        assertArrayEquals(simulation.getEvents().toArray(), events.toArray());
     }
 
     /**
@@ -181,11 +212,44 @@ public class SimulationTest {
     @Test
     public void testSetEvents() {
         System.out.println("setEvents");
-        ArrayList<Event> events = null;
-        Simulation instance = null;
-        instance.setEvents(events);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Simulation simulation = new Simulation("Simulação 1", 5, new Range(1, 6));
+        simulation.setCentral(central);
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Event event = new Event(originPhone, destinationPhone);
+        
+        ArrayList<Event> events = new ArrayList<>();
+        events.add(event);
+        
+        simulation.setEvents(events);
+        
+        assertEquals(simulation.getEvents(), events);
     }
     
+    /**
+     * Test of addEvent method, of class Simulation.
+     */
+    @Test
+    public void testAddEvent() {
+        Simulation simulation = new Simulation("Simulação 1", 5, new Range(1, 6));
+        
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Event event = new Event(originPhone, destinationPhone);
+        simulation.addEvent(event);
+        
+        assertEquals(simulation.getEvents().get(0), event);
+    }
 }

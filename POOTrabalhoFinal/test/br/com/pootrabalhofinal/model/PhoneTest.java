@@ -37,7 +37,21 @@ public class PhoneTest {
     @After
     public void tearDown() {
     }
-
+    
+    /**
+     * Test of Phone constructor, of class Phone
+     */
+    @Test
+    public void testPhone() {
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        
+        Phone phone = new Phone("Phone 0", antenna);
+        
+        assertNotNull(phone);
+    }
+    
     /**
      * Test of getAntenna method, of class Phone.
      */
@@ -56,7 +70,8 @@ public class PhoneTest {
 
         Antenna expResult = ant;
         Antenna result = instance.getAntenna();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -77,6 +92,7 @@ public class PhoneTest {
         
         Antenna otherAntenna = new Antenna("Antenna 3", 3, new Range(2,6),c);
         instance.setAntenna(otherAntenna);
+        
         assertEquals(instance.getAntenna(),otherAntenna);
     }
 
@@ -98,7 +114,8 @@ public class PhoneTest {
         
         String expResult = "Phone 1";
         String result = instance.getIdentifier();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -119,6 +136,7 @@ public class PhoneTest {
         
         String newIdentifier = "Phone 3";
         instance.setIdentifier(newIdentifier);
+        
         assertEquals(instance.getIdentifier(), newIdentifier);
     }
 

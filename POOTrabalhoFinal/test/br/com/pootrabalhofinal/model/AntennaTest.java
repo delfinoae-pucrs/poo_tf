@@ -5,6 +5,7 @@
  */
 package br.com.pootrabalhofinal.model;
 
+import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -40,12 +41,23 @@ public class AntennaTest {
     @After
     public void tearDown() {
     }
+    
+    /**
+     * Test of Antenna constructor, of class Antenna
+     */
+    @Test
+    public void testAntenna() {
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        assertNotNull(antenna);
+    }
 
     /**
      * Test of getAttendanceTimeInterval method, of class Antenna.
      */
     @Test
-
     public void testGetAttendanceTimeInterval() {
         System.out.println("getAttendanceTimeInterval");
         String identifierCentral = "Central 1";
@@ -55,9 +67,11 @@ public class AntennaTest {
         int queueCapacityCentral = 4;
         Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
         Range expResult = attendanceTimeInterval;
         Range result = instance.getAttendanceTimeInterval();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -76,6 +90,7 @@ public class AntennaTest {
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
 
         instance.setAttendanceTimeInterval(otherRange);
+        
         assertEquals(instance.getAttendanceTimeInterval(), otherRange);
     }
 
@@ -95,7 +110,8 @@ public class AntennaTest {
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
         
         String result = instance.getIdentifier();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -115,7 +131,8 @@ public class AntennaTest {
         
         instance.setIdentifier(newIdentifier);
         String expResult = "Anntena 3";
-        assertEquals(expResult, instance.getIdentifier());
+        
+        assertEquals(instance.getIdentifier(), expResult);
     }
 
     /**
@@ -134,7 +151,8 @@ public class AntennaTest {
         
         int expResult = 10;
         int result = instance.getQueueCapacity();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -153,8 +171,8 @@ public class AntennaTest {
         Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
         
         instance.setQueueCapacity(newQueueCapacityAntenna);
+        
         assertEquals(Integer.valueOf(instance.getQueueCapacity()), Integer.valueOf(newQueueCapacityAntenna));
-
     }
 
     /**
@@ -173,7 +191,8 @@ public class AntennaTest {
         
         Central expResult = c;
         Central result = instance.getCentral();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -192,7 +211,8 @@ public class AntennaTest {
         Central central2 = new Central (identifierCentral, queueCapacityCentral, attendanceTimeInterval);
         
         instance.setCentral(central2);
-        assertEquals(instance.getCentral(),central2);
+        
+        assertEquals(instance.getCentral(), central2);
     }
 
     /**
@@ -201,18 +221,24 @@ public class AntennaTest {
     @Test
     public void testGetPhones() {
         System.out.println("getPhones");
+        
         String identifierCentral = "Central 1";
-        String identifierAntenna = "Antenna 1";
         Range attendanceTimeInterval = new Range(10, 50);
         int queueCapacityAntenna = 5;
-        int queueCapacityCentral = 4;
-        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
-        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        int stackCapacityCentral = 4;
+        Central c = new Central(identifierCentral, stackCapacityCentral, attendanceTimeInterval);
+        
+        String identifierAntenna = "Antenna 1";
+        Antenna antenna = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
+        
+        Phone phone = new Phone("C1", antenna);
+        antenna.addPhone(phone);
         
         ArrayList<Phone> expResult = new ArrayList<>();
-        ArrayList<Phone> result = instance.getPhones();
-        assertEquals(expResult, result);
-       
+        expResult.add(phone);
+        ArrayList<Phone> result = antenna.getPhones();
+        
+        assertArrayEquals(result.toArray(), expResult.toArray());
     }
 
     /**
@@ -221,17 +247,19 @@ public class AntennaTest {
     @Test
     public void testSetPhones() {
         System.out.println("setPhones");
-        ArrayList<Phone> phones = new ArrayList<>();
-        String identifierCentral = "Central 1";
-        String identifierAntenna = "Antenna 1";
-        Range attendanceTimeInterval = new Range(10, 50);
-        int queueCapacityAntenna = 5;
-        int queueCapacityCentral = 4;
-        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
-        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
         
-        instance.setPhones(phones);
-        assertEquals(instance.getPhones(), phones);
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        
+        Phone phone = new Phone("Phone 1", antenna);
+        
+        ArrayList<Phone> phones = new ArrayList<>();
+        phones.add(phone);
+        
+        antenna.setPhones(phones);
+        
+        assertEquals(antenna.getPhones(), phones);
     }
 
     /**
@@ -240,16 +268,27 @@ public class AntennaTest {
     @Test
     public void testGetMessages() {
         System.out.println("getMessages");
+        
         String identifierCentral = "Central 1";
         String identifierAntenna = "Antenna 1";
         Range attendanceTimeInterval = new Range(10, 50);
         int queueCapacityAntenna = 5;
         int queueCapacityCentral = 4;
         
-        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
-        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c); 
-        Queue<Message> result = new LinkedList<>();                
-        assertEquals(result, instance.getMessages()); 
+        Central central = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna antenna = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        Queue<Message> messages = new LinkedList<>();
+        messages.add(message);
+        
+        antenna.addMessage(message);
+        
+        assertArrayEquals(antenna.getMessages().toArray(), messages.toArray()); 
     }
 
     /**
@@ -258,20 +297,64 @@ public class AntennaTest {
     @Test
     public void testSetMessages() {
         System.out.println("setMessages");
+        
         String identifierCentral = "Central 1";
         String identifierAntenna = "Antenna 1";
         Range attendanceTimeInterval = new Range(10, 50);
         int queueCapacityAntenna = 5;
         int queueCapacityCentral = 4;
-        Queue<Message> otherQueue = new LinkedList<Message>();
         
+        Central central = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
+        Antenna antenna = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, central); 
         
-        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
-        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c); 
-        instance.setMessages(otherQueue);
-        assertEquals(instance.getMessages(),otherQueue);
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
         
-
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        Queue<Message> messages = new LinkedList<>();
+        messages.add(message);
+        
+        antenna.setMessages(messages);
+        
+        assertArrayEquals(antenna.getMessages().toArray(), messages.toArray()); 
+    }
+    
+    /**
+     * Test of addPhone method, of class Antenna.
+     */
+    @Test
+    public void testAddPhone() {
+        System.out.println("addPhone");
+        
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        
+        Phone phone = new Phone("Phone 0", antenna);
+        antenna.addPhone(phone);
+        
+        assertEquals(antenna.getPhones().get(0), phone);
+    }
+    
+    /**
+     * Test of addMessage method, of class Antenna.
+     */
+    @Test
+    public void testAddMessage() {
+        System.out.println("addMessage");
+        
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        antenna.addMessage(message);
+        
+        assertEquals(antenna.getMessages().element(), message);
     }
 
 }

@@ -37,7 +37,24 @@ public class EventTest {
     @After
     public void tearDown() {
     }
-
+    
+    /**
+     * Test of Event constructor, of class Event
+     */
+    @Test
+    public void testEvent() {
+        Central central = new Central("Central 1", 2, new Range(1, 6));
+        
+        Antenna antenna = new Antenna("Antena 1", 2, new Range(1,6), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Event event = new Event(originPhone, destinationPhone);
+        
+        assertNotNull(event);
+    }
+    
     /**
      * Test of getOriginPhone method, of class Event.
      */
@@ -59,7 +76,8 @@ public class EventTest {
         Event instance = new Event(phone1, phone2);
         Phone expResult = phone1;
         Phone result = instance.getOriginPhone();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
 
     }
 
@@ -85,6 +103,7 @@ public class EventTest {
         
         Phone otherPhoneOrigin = new Phone(phoneNameOrigin, ant);
         instance.setOriginPhone(otherPhoneOrigin);
+        
         assertEquals(instance.getOriginPhone(), otherPhoneOrigin);
     }
 
@@ -109,7 +128,8 @@ public class EventTest {
         Event instance = new Event(phone1, phone2);
         Phone expResult = phone2;
         Phone result = instance.getDestinationPhone();
-        assertEquals(expResult, result);
+        
+        assertEquals(result, expResult);
     }
 
     /**
@@ -134,6 +154,7 @@ public class EventTest {
         
         Phone otherPhoneOrigin = new Phone(phoneNameOrigin, ant);
         instance.setDestinationPhone(otherPhoneOrigin);
+        
         assertEquals(instance.getDestinationPhone(), otherPhoneOrigin);
     }
     
