@@ -5,7 +5,7 @@
  */
 package br.com.pootrabalhofinal;
 
-import br.com.pootrabalhofinal.model.Simulation;
+import br.com.pootrabalhofinal.models.Simulation;
 import br.com.pootrabalhofinal.utils.SimulationSetup;
 import br.com.pootrabalhofinal.utils.Utils;
 import java.io.IOException;

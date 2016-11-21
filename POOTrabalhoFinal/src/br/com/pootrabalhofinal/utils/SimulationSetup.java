@@ -5,11 +5,11 @@
  */
 package br.com.pootrabalhofinal.utils;
 
-import br.com.pootrabalhofinal.model.Antenna;
-import br.com.pootrabalhofinal.model.Central;
-import br.com.pootrabalhofinal.model.Event;
-import br.com.pootrabalhofinal.model.Phone;
-import br.com.pootrabalhofinal.model.Simulation;
+import br.com.pootrabalhofinal.models.Antenna;
+import br.com.pootrabalhofinal.models.Central;
+import br.com.pootrabalhofinal.models.Event;
+import br.com.pootrabalhofinal.models.Phone;
+import br.com.pootrabalhofinal.models.Simulation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;

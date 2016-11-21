@@ -5,6 +5,11 @@
  */
 package br.com.pootrabalhofinal.model;
 
+import br.com.pootrabalhofinal.models.Simulation;
+import br.com.pootrabalhofinal.models.Phone;
+import br.com.pootrabalhofinal.models.Antenna;
+import br.com.pootrabalhofinal.models.Central;
+import br.com.pootrabalhofinal.models.Event;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
 import org.junit.After;

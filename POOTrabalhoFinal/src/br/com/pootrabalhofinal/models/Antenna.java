@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.pootrabalhofinal.model;
+package br.com.pootrabalhofinal.models;
 
+import br.com.pootrabalhofinal.protocols.IMessage;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import java.util.Queue;
  *
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
-public class Antenna {
+public class Antenna implements IMessage {
     private String identifier;
     private int queueCapacity;
     private Range attendanceTimeInterval;
@@ -37,6 +38,11 @@ public class Antenna {
         this.queueCapacity = queueCapacity;
         this.attendanceTimeInterval = attendanceTimeInterval;
         this.central = central;
+    }
+    
+    @Override
+    public void updateMessages() {
+        
     }
     
     /**

@@ -5,6 +5,10 @@
  */
 package br.com.pootrabalhofinal.model;
 
+import br.com.pootrabalhofinal.models.Phone;
+import br.com.pootrabalhofinal.models.Antenna;
+import br.com.pootrabalhofinal.models.Central;
+import br.com.pootrabalhofinal.models.Event;
 import br.com.pootrabalhofinal.utils.Range;
 import org.junit.After;
 import org.junit.AfterClass;

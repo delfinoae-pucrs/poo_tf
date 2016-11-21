@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.pootrabalhofinal.model;
+package br.com.pootrabalhofinal.models;
 
 import br.com.pootrabalhofinal.utils.Range;
 import br.com.pootrabalhofinal.utils.Utils;
@@ -53,6 +53,22 @@ public class Simulation {
         while(duration > 0) {
             Utils.debug("Unidade de tempo: " + String.valueOf(duration));
             
+            // Update messages of central
+            this.central.updateMessages();
+            
+            // Update messages of antennas
+            ArrayList<Antenna> antennas = this.central.getAntennas();
+            antennas.forEach((antenna) -> {
+                antenna.updateMessages();
+            });
+            
+            // Update messages of phones
+            antennas.forEach((antenna) -> {
+                ArrayList<Phone> phones = antenna.getPhones();
+                phones.forEach((phone) -> {
+                    phone.updateMessages();
+                });
+            });
             
             try {
                 Thread.sleep(1000);

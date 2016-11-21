@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.pootrabalhofinal.model;
+package br.com.pootrabalhofinal.models;
 
+import br.com.pootrabalhofinal.protocols.IMessage;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -13,7 +14,7 @@ import java.util.Stack;
  *
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
-public class Central {
+public class Central implements IMessage {
     private String identifier;
     private int processorsQuantity;
     private Range processorsTimeInterval;
@@ -40,6 +41,11 @@ public class Central {
         this.identifier = identifier;
         this.processorsQuantity = processorsQuantity;
         this.processorsTimeInterval = processorsTimeInterval;
+    }
+    
+    @Override
+    public void updateMessages() {
+        
     }
     
     /**

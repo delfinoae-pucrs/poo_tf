@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.pootrabalhofinal.model;
+package br.com.pootrabalhofinal.models;
 
+import br.com.pootrabalhofinal.protocols.IMessage;
 import br.com.pootrabalhofinal.utils.MessageStatus;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
-public class Phone {
+public class Phone implements IMessage {
     private String identifier;
     private Antenna antenna;
     
@@ -29,6 +30,11 @@ public class Phone {
     public Phone(String identifier, Antenna antenna) {
         this.identifier = identifier;
         this.antenna = antenna;
+    }
+    
+    @Override
+    public void updateMessages() {
+        
     }
     
     /**
