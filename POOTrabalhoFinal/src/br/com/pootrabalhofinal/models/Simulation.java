@@ -5,6 +5,7 @@
  */
 package br.com.pootrabalhofinal.models;
 
+import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import br.com.pootrabalhofinal.utils.Utils;
 import java.util.ArrayList;
@@ -44,11 +45,11 @@ public class Simulation {
     }
     
     /**
-     * Run the simulation
-     * 
+     * Run the simulation.
      */
     public void run() {
         int duration = getDuration();
+        createMessagesForPhones();
         
         while(duration > 0) {
             Utils.debug("Unidade de tempo: " + String.valueOf(duration));
@@ -77,6 +78,24 @@ public class Simulation {
             }
             duration--;
         }
+    }
+    
+    /**
+     * Create messages for phones by events.
+     */
+    private void createMessagesForPhones() {
+        int msgQtd = getMessageQuantityInterval().randomValue();
+        getEvents().forEach((event)->{
+            Phone originPhone = event.getOriginPhone();
+            
+            Message message = new Message(originPhone, event.getDestinationPhone(), MessageStatus.PHONE_TO_ANTENNA);
+            if ( msgQtd > 0 ) {
+                message.setSendQuantity(msgQtd);
+                message.setSendAgain(false);
+                
+                originPhone.addMessageToOutbox(message);
+            }
+        });
     }
     
     /**

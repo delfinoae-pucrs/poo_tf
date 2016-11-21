@@ -16,6 +16,8 @@ public class Message {
     private Phone destinationPhone;
     private MessageStatus status;
     private boolean waitForNextTime;
+    private boolean sendAgain;
+    private int sendQuantity;
     
     /**
      * Constructor
@@ -57,6 +59,22 @@ public class Message {
         this.status = status;
     }
 
+    public boolean isSendAgain() {
+        return sendAgain;
+    }
+
+    public void setSendAgain(boolean sendAgain) {
+        this.sendAgain = sendAgain;
+    }
+
+    public int getSendQuantity() {
+        return sendQuantity;
+    }
+
+    public void setSendQuantity(int sendQuantity) {
+        this.sendQuantity = sendQuantity;
+    }
+    
     public boolean isWaitForNextTime() {
         return waitForNextTime;
     }

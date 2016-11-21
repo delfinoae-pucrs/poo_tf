@@ -5,10 +5,6 @@
  */
 package br.com.pootrabalhofinal.models;
 
-import br.com.pootrabalhofinal.models.Message;
-import br.com.pootrabalhofinal.models.Phone;
-import br.com.pootrabalhofinal.models.Antenna;
-import br.com.pootrabalhofinal.models.Central;
 import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
@@ -113,7 +109,7 @@ public class PhoneTest {
         Phone originPhone = new Phone("Phone 0", antenna);
         Phone destinationPhone = new Phone("Phone 1", antenna);
         
-        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.PHONE_TO_ANTENNA);
         
         ArrayList<Message> messagesOutbox = new ArrayList<>();
         messagesOutbox.add(message);
@@ -134,7 +130,7 @@ public class PhoneTest {
         Phone originPhone = new Phone("Phone 0", antenna);
         Phone destinationPhone = new Phone("Phone 1", antenna);
         
-        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.PHONE_TO_ANTENNA);
         
         ArrayList<Message> messagesOutbox = new ArrayList<>();
         messagesOutbox.add(message);
@@ -259,7 +255,7 @@ public class PhoneTest {
         Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
         originPhone.addMessageToOutbox(message);
         
-        assertEquals(originPhone.getMessagesOutbox().get(0).getStatus(), MessageStatus.SEND_TO_ANTENNA);
+        assertEquals(originPhone.getMessagesOutbox().get(0).getStatus(), MessageStatus.PHONE_TO_ANTENNA);
     }
     
     /**
@@ -273,7 +269,7 @@ public class PhoneTest {
         Phone originPhone = new Phone("Phone 0", antenna);
         Phone destinationPhone = new Phone("Phone 1", antenna);
         
-        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.PHONE_TO_ANTENNA);
         originPhone.addMessageToSentbox(message);
         
         assertEquals(originPhone.getMessagesSentbox().get(0), message);
@@ -290,7 +286,7 @@ public class PhoneTest {
         Phone originPhone = new Phone("Phone 0", antenna);
         Phone destinationPhone = new Phone("Phone 1", antenna);
         
-        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.PHONE_TO_ANTENNA);
         originPhone.addMessageToSentbox(message);
         
         assertEquals(originPhone.getMessagesSentbox().get(0).getStatus(), MessageStatus.SUCCESSFUL);
@@ -307,7 +303,7 @@ public class PhoneTest {
         Phone originPhone = new Phone("Phone 0", antenna);
         Phone destinationPhone = new Phone("Phone 1", antenna);
         
-        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.PHONE_TO_ANTENNA);
         originPhone.addMessageToInbox(message);
         
         assertEquals(originPhone.getMessagesInbox().get(0), message);
@@ -324,7 +320,7 @@ public class PhoneTest {
         Phone originPhone = new Phone("Phone 0", antenna);
         Phone destinationPhone = new Phone("Phone 1", antenna);
         
-        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.PHONE_TO_ANTENNA);
         originPhone.addMessageToInbox(message);
         
         assertEquals(originPhone.getMessagesInbox().get(0).getStatus(), MessageStatus.SUCCESSFUL);

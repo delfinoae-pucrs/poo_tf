@@ -5,6 +5,8 @@
  */
 package br.com.pootrabalhofinal.utils;
 
+import java.util.Random;
+
 /**
  *
  * @author Allan Ederich <delfino.ae@gmail.com>
@@ -22,6 +24,15 @@ public class Range {
     public Range(int min, int max) {
         this.min = min;
         this.max = max;
+    }
+    
+    /**
+     * Get random value of interval
+     * @return random value
+     */
+    public int randomValue() {
+        Random r = new Random();
+	return r.nextInt((this.max - this.min) + 1) + this.min;
     }
     
     /**

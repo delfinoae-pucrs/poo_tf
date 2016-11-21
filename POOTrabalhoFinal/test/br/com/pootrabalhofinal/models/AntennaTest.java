@@ -5,10 +5,6 @@
  */
 package br.com.pootrabalhofinal.models;
 
-import br.com.pootrabalhofinal.models.Message;
-import br.com.pootrabalhofinal.models.Phone;
-import br.com.pootrabalhofinal.models.Antenna;
-import br.com.pootrabalhofinal.models.Central;
 import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
@@ -321,7 +317,7 @@ public class AntennaTest {
     }
     
     /**
-     * Test of getPhoneByIdentifier method, of class Antenna
+     * Test of getPhoneByIdentifier method, of class Antenna.
      */
     @Test
     public void testGetPhoneByIdentifier() {
@@ -333,6 +329,24 @@ public class AntennaTest {
         antenna.addPhone(phone);
         
         assertEquals(antenna.getPhoneByIdentifier("Phone 0"), phone);
+    }
+    
+    /**
+     * Test of isQueueExhausted method, of class Antenna.
+     */
+    @Test
+    public void testIsQueueExhausted() {
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 1, new Range(10, 50), central);
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        antenna.addMessage(message);
+        
+        assertTrue(antenna.isQueueExhausted());
     }
     
 }

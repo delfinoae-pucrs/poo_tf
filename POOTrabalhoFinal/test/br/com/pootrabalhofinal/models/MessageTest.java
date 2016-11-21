@@ -5,10 +5,6 @@
  */
 package br.com.pootrabalhofinal.models;
 
-import br.com.pootrabalhofinal.models.Message;
-import br.com.pootrabalhofinal.models.Phone;
-import br.com.pootrabalhofinal.models.Antenna;
-import br.com.pootrabalhofinal.models.Central;
 import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import org.junit.After;
@@ -224,8 +220,8 @@ public class MessageTest {
         Phone originPhone2 = new Phone("Phone 0", antenna);
         Phone destinationPhone2 = new Phone("Phone 1", antenna);
         
-        Message message = new Message(originPhone1, destinationPhone1, MessageStatus.SEND_TO_ANTENNA);
-        Message message2 = new Message(originPhone2, destinationPhone2, MessageStatus.SEND_TO_ANTENNA);
+        Message message = new Message(originPhone1, destinationPhone1, MessageStatus.PHONE_TO_ANTENNA);
+        Message message2 = new Message(originPhone2, destinationPhone2, MessageStatus.PHONE_TO_ANTENNA);
         
         boolean sameMessage = message.equals(message2);
         assertTrue(sameMessage);

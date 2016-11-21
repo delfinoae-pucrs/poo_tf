@@ -13,17 +13,25 @@ package br.com.pootrabalhofinal.utils;
 public enum MessageStatus {
     
     /**
-     * Message to send to antenna
+     * Message from phone to antenna
      */
-    SEND_TO_ANTENNA,
+    PHONE_TO_ANTENNA,
     /**
-     * Message to send to central
+     * Message from antenna to central
      */
-    SEND_TO_CENTRAL,
+    ANTENNA_TO_CENTRAL,
     /**
-     * Message to send to phone
+     * Message from central to destination antenna
      */
-    SEND_TO_PHONE,
+    CENTRAL_TO_DESTINATION_ANTENNA,
+    /**
+     * Message from central to origin antenna
+     */
+    CENTRAL_TO_ORIGIN_ANTENNA,
+    /**
+     * Message from antenna to phone
+     */
+    ANTENNA_TO_PHONE,
     /**
      * Message delivered successful
      */

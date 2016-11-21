@@ -6,6 +6,7 @@
 package br.com.pootrabalhofinal.models;
 
 import br.com.pootrabalhofinal.protocols.IMessage;
+import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -42,7 +43,31 @@ public class Central extends Device implements IMessage {
     
     @Override
     public void updateMessages() {
-        
+        if (getMessages().size() > 0) {
+            Message message = getMessages().peek();
+            if ( message.getStatus() == MessageStatus.CENTRAL_TO_ORIGIN_ANTENNA ) {
+                Message messageRemoved = getMessages().pop();
+                
+                Antenna originAntenna = message.getOriginPhone().getAntenna();
+                if ( originAntenna.isQueueExhausted() ) {
+                    message.setStatus(MessageStatus.FAILURE_NOT_DELIVERED);
+                }
+                else {
+                    originAntenna.addMessage(messageRemoved);
+                }
+            }
+            else if ( message.getStatus() == MessageStatus.CENTRAL_TO_DESTINATION_ANTENNA ) {
+                Antenna destinationAntenna = message.getDestinationPhone().getAntenna();
+                if ( destinationAntenna.isQueueExhausted() ) {
+                    message.setStatus(MessageStatus.CENTRAL_TO_ORIGIN_ANTENNA);
+                }
+                else {
+                    message.setStatus(MessageStatus.ANTENNA_TO_PHONE);
+                    message.setWaitForNextTime(true);
+                    destinationAntenna.addMessage(getMessages().pop());
+                }
+            }
+        }
     }
     
     /**

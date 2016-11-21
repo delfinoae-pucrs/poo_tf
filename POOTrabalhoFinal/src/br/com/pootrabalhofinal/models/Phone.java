@@ -33,7 +33,30 @@ public class Phone extends Device implements IMessage {
     
     @Override
     public void updateMessages() {
-        
+        if ( getMessagesOutbox().size() > 0 ) {
+            
+            for(int i = 0; i < getMessagesOutbox().size(); i++) {
+                Message message = getMessagesOutbox().get(i);
+                
+                Message messageCopy = message;
+                messageCopy.setStatus(MessageStatus.ANTENNA_TO_CENTRAL);
+                getAntenna().addMessage(messageCopy);
+                
+                if ( message.getSendQuantity() > 1 ) {
+                    message.setSendQuantity(message.getSendQuantity() - 1);
+                    if ( !message.isSendAgain() ) {
+                        message.setSendAgain(true);
+                        break;
+                    }
+                }
+                else {
+                    getMessagesOutbox().remove(message);
+                    if ( !message.isSendAgain() ) {
+                        break;
+                    }
+                }
+            }
+        }
     }
     
     /**
@@ -44,7 +67,7 @@ public class Phone extends Device implements IMessage {
      */
     public void addMessageToOutbox(Message message) {
         getMessagesOutbox().add(message);
-        message.setStatus(MessageStatus.SEND_TO_ANTENNA);
+        message.setStatus(MessageStatus.PHONE_TO_ANTENNA);
     }
     
     /**

@@ -6,6 +6,7 @@
 package br.com.pootrabalhofinal.models;
 
 import br.com.pootrabalhofinal.protocols.IMessage;
+import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -43,7 +44,26 @@ public class Antenna extends Device implements IMessage {
     
     @Override
     public void updateMessages() {
-        
+        if ( getMessages().size() > 0 ) {
+            Message message = getMessages().peek();
+            if ( !message.isWaitForNextTime() ) {
+                Message messageRemoved = getMessages().remove();
+                
+                if ( messageRemoved.getStatus() == MessageStatus.ANTENNA_TO_CENTRAL ) {
+                    messageRemoved.setStatus(MessageStatus.CENTRAL_TO_DESTINATION_ANTENNA);
+                    getCentral().addMessage(messageRemoved);
+                }
+                else if ( message.getStatus() == MessageStatus.ANTENNA_TO_PHONE ) {
+                    messageRemoved.setStatus(MessageStatus.SUCCESSFUL);
+                    
+                    Phone destinationPhone = messageRemoved.getDestinationPhone();
+                    destinationPhone.addMessageToInbox(messageRemoved);
+                    
+                    Phone originPhone = messageRemoved.getOriginPhone();
+                    originPhone.addMessageToSentbox(messageRemoved);
+                }
+            }
+        }
     }
     
     /**
@@ -77,6 +97,15 @@ public class Antenna extends Device implements IMessage {
      */
     public void addMessage(Message message) {
         getMessages().add(message);
+    }
+    
+    /**
+     * Verify if the queue is exhausted
+     * 
+     * @return boolean
+     */
+    public boolean isQueueExhausted() {
+        return getQueueCapacity() == getMessages().size();
     }
     
     /*
