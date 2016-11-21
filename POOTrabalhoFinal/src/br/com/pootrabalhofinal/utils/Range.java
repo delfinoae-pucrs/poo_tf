@@ -33,4 +33,9 @@ public class Range {
     public boolean contains(int number){
         return (number >= this.min && number <= this.max);
     }
+    
+    @Override
+    public String toString() {
+        return "Mínimo: " + this.min + " - " + "Máximo: " + this.max;
+    }
 }

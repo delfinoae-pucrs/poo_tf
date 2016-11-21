@@ -40,10 +40,20 @@ public class SimulationTest {
     }
     
     /**
-     * Test of Simulation constructor, of class Simulation
+     * Test of Simulation constructor, of class simulation
      */
     @Test
     public void testSimulation() {
+        Simulation simulation = new Simulation();
+        
+        assertNotNull(simulation);
+    }
+    
+    /**
+     * Test of Simulation constructor, of class Simulation
+     */
+    @Test
+    public void testSimulation2() {
         Simulation simulation = new Simulation("Simulação 1", 5, new Range(1, 6));
         
         assertNotNull(simulation);

@@ -22,6 +22,13 @@ public class Simulation {
     
     /**
      * Constructor
+     */
+    public Simulation() {
+        
+    }
+    
+    /**
+     * Constructor
      * 
      * @param name name of the simulation
      * @param duration duration of the simulation

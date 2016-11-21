@@ -46,6 +46,16 @@ public class CentralTest {
      */
     @Test
     public void testCentral() {
+        Central central = new Central();
+        
+        assertNotNull(central);
+    }
+    
+    /**
+     * Test of Central constructor, of class Central
+     */
+    @Test
+    public void testCentral2() {
         Central central = new Central("Central 1", 2, new Range(1, 6));
         
         assertNotNull(central);

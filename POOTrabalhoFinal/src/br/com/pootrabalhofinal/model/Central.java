@@ -24,6 +24,13 @@ public class Central {
     
     /**
      * Constructor
+     */
+    public Central() {
+        
+    }
+    
+    /**
+     * Constructor
      * 
      * @param identifier identifier of the central
      * @param processorsQuantity quantity of processors of the central
@@ -33,6 +40,21 @@ public class Central {
         this.identifier = identifier;
         this.processorsQuantity = processorsQuantity;
         this.processorsTimeInterval = processorsTimeInterval;
+    }
+    
+    /**
+     * Find and return an antenna by identifier
+     * 
+     * @param identifier identifier to find
+     * @return Antenna
+     */
+    public Antenna getAntennaByIdentifier(String identifier) {
+        for ( Antenna antenna: getAntennas() ) {
+            if ( antenna.getIdentifier().equals(identifier) ) {
+                return antenna;
+            }
+        }
+        return null;
     }
     
     /**
@@ -94,6 +116,12 @@ public class Central {
 
     public void setMessages(Stack<Message> messages) {
         this.messages = messages;
+    }
+    
+    @Override
+    public String toString() {
+        return "Nome: " + getIdentifier() + " - Quantidade de processadores: " + getProcessorsQuantity() + " - "
+                + "Tempo por atendimento dos processadores: " + getProcessorsTimeInterval().toString();
     }
     
 }

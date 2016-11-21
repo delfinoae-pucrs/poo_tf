@@ -43,4 +43,9 @@ public class Phone {
         this.identifier = identifier;
     }
     
+    @Override
+    public String toString() {
+        return "Nome: " + getIdentifier() + " - " + "Antena: " + getAntenna().getIdentifier();
+    }
+    
 }

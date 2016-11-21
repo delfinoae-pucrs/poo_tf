@@ -108,4 +108,11 @@ public class Antenna {
         this.messages = messages;
     }
     
+    @Override
+    public String toString() {
+        return "Nome: " + getIdentifier() + " - " + "Capacidade da fila: " + getQueueCapacity() + " - "
+                + "Tempo por atendimento: " + getAttendanceTimeInterval().toString() + " - "
+                + "Central: " + getCentral().getIdentifier();
+    }
+    
 }
