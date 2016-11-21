@@ -356,5 +356,20 @@ public class AntennaTest {
         
         assertEquals(antenna.getMessages().element(), message);
     }
-
+    
+    /**
+     * Test of getPhoneByIdentifier method, of class Antenna
+     */
+    @Test
+    public void testGetPhoneByIdentifier() {
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        
+        Phone phone = new Phone("Phone 0", antenna);
+        antenna.addPhone(phone);
+        
+        assertEquals(antenna.getPhoneByIdentifier("Phone 0"), phone);
+    }
+    
 }

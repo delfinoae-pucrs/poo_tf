@@ -58,6 +58,23 @@ public class Central {
     }
     
     /**
+     * Find and return a phone by identifier
+     * 
+     * @param identifier identifier to find
+     * @return Phone
+     */
+    public Phone getPhoneByIdentifier(String identifier) {
+        for ( Antenna antenna: getAntennas() ) {
+            for ( Phone phone: antenna.getPhones()) {
+                if ( phone.getIdentifier().equals(identifier) ) {
+                    return phone;
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
      * Add an antenna to list
      * 
      * @param antenna antenna to add

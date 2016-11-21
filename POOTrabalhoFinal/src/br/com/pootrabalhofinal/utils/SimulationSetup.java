@@ -7,6 +7,7 @@ package br.com.pootrabalhofinal.utils;
 
 import br.com.pootrabalhofinal.model.Antenna;
 import br.com.pootrabalhofinal.model.Central;
+import br.com.pootrabalhofinal.model.Event;
 import br.com.pootrabalhofinal.model.Phone;
 import br.com.pootrabalhofinal.model.Simulation;
 import java.io.BufferedReader;
@@ -46,6 +47,9 @@ public class SimulationSetup {
      * @throws IOException 
      */
     public void loadSimulationParameters() throws IOException {
+        traceWithMessage("--------- LEITURA DO ARQUIVO DE INSTANCIAÇÃO ---------");
+        traceWithMessage("\n");
+        
         this.simulation = new Simulation();
         
         Central central = new Central();
@@ -147,6 +151,8 @@ public class SimulationSetup {
         catch (IOException e) {
             throw new IOException();
         }
+        
+        this.simulation.setCentral(central);
     }
     
     /**
@@ -155,11 +161,52 @@ public class SimulationSetup {
      * @throws IOException 
      */
     public void loadEvents() throws IOException {
+        traceWithMessage("\n");
+        traceWithMessage("\n");
+        traceWithMessage("--------- LEITURA DO ARQUIVO DE EVENTOS ---------");
+        traceWithMessage("\n");
+        
         Path path = Paths.get(getEventsFilePath());
         try ( BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset()) ) {
             String linha = null;
+            int linha_index = 0;
             while ((linha = br.readLine()) != null) {
-               
+                switch (linha_index) {
+                    case 0:                 // Nome do experimento
+                        String[] names = linha.split(":");
+                        String name = names[1].trim();
+                        
+                        traceWithMessage("Experimento: " + name);
+                        
+                        if ( !this.simulation.getName().equals(name) ) {
+                            throw new IOException();
+                        }
+                        
+                        break;
+                    case 1:
+                        String[] eventsQtd = linha.split(":");
+                        String qtd = eventsQtd[1].trim();
+                        
+                        traceWithMessage("Quantidade de eventos: " + qtd);
+                        break;
+                    default:
+                        String[] events = linha.split(";");
+                        String phoneOriginIdentifier = events[0];
+                        String phoneDestinationIdentifier = events[1];
+                        
+                        Phone phoneOrigin = this.simulation.getCentral().getPhoneByIdentifier(phoneOriginIdentifier);
+                        Phone phoneDestination = this.simulation.getCentral().getPhoneByIdentifier(phoneDestinationIdentifier);
+                        if ( phoneOrigin == null || phoneDestination == null ) {
+                            throw new IOException();
+                        }
+                        
+                        Event event = new Event(phoneOrigin, phoneDestination);
+                        this.simulation.addEvent(event);
+                        
+                        traceWithMessage("Evento: \t" + event.toString());
+                        break;
+                }
+                linha_index++;
             }
         }
         catch (IOException e) {

@@ -26,16 +26,25 @@ import javafx.stage.Stage;
  * @author allanederich
  */
 public class PhoneMessageSimulation extends Application {
-    Stage primaryStage;
-    Button startSimulation;
+    Stage welcomeStage;
+    Stage setupStage;
+    
+    SimulationSetup simulationSetup;
     Simulation simulation;
-    TextField eventsTextField;
+    
+    Button startSimulation;
+    Button loadSimulationParametersButton;
     Button loadEventsButton;
+    Button closeSetupButton;
+    Button resetSetupButton;
+    
+    TextField eventsTextField;
+    TextField simulationParametersTextField;
     TextArea traceTextArea;
     
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+        this.welcomeStage = primaryStage;
         
         createWelcomeWindow();
     }
@@ -52,7 +61,7 @@ public class PhoneMessageSimulation extends Application {
         lblWelcome.setWrapText(true);
         lblWelcome.setAlignment(Pos.CENTER);
         
-        Button btnSetup = new Button("Configurar");
+        Button btnSetup = new Button("Configurações");
         btnSetup.setMaxWidth(Double.MAX_VALUE);
         btnSetup.setOnAction((ActionEvent event) -> {
             createSetupWindow();
@@ -70,12 +79,20 @@ public class PhoneMessageSimulation extends Application {
         grid.add(this.startSimulation,  0, 3);
         
         Scene scene = new Scene(grid, 400, 200);
-        this.primaryStage.setTitle("Simulador de Mensagens entre Telefone Celulares");
-        this.primaryStage.setScene(scene);
-        this.primaryStage.show();
+        this.welcomeStage.setTitle("Simulador de Mensagens entre Telefone Celulares");
+        this.welcomeStage.setScene(scene);
+        this.welcomeStage.show();
     }
     
     private void createSetupWindow() {
+        if ( this.simulationSetup == null ) {
+            this.simulationSetup = new SimulationSetup();
+        }
+        
+        if ( this.setupStage != null ) {
+            this.setupStage.show();
+            return;
+        }
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.TOP_CENTER);
 //        grid.setGridLinesVisible(true);
@@ -83,43 +100,41 @@ public class PhoneMessageSimulation extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
         
-        SimulationSetup simulationSetup = new SimulationSetup();
-        
-        createSetupParametersBlock(grid, simulationSetup);
-        createSetupEventsBlock(grid, simulationSetup);
+        createSetupParametersBlock(grid);
+        createSetupEventsBlock(grid);
         createSetupTraceBlock(grid);
         createSetupSaveBlock(grid);
         
-        Scene scene = new Scene(grid, 1000, 600);
+        Scene scene = new Scene(grid, 1000, 400);
         
-        Stage stage = new Stage();
-        stage.setX(this.primaryStage.getX() - 350);
-        stage.setY(this.primaryStage.getY() - 100);
-        stage.setTitle("Configurar simulação");
-        stage.setScene(scene);
-        stage.show();
+        this.setupStage = new Stage();
+        this.setupStage.setX(this.welcomeStage.getX() - 350);
+        this.setupStage.setY(this.welcomeStage.getY() - 100);
+        this.setupStage.setTitle("Configurar simulação");
+        this.setupStage.setScene(scene);
+        this.setupStage.show();
     }
     
-    private void createSetupParametersBlock(GridPane grid, SimulationSetup simulationSetup) {
+    private void createSetupParametersBlock(GridPane grid) {
         Label label = new Label("Nome do arquivo de instanciação: ");
         label.setPrefWidth(230.0);
         label.setAlignment(Pos.CENTER_RIGHT);
         grid.add(label, 0, 0);
         
-        TextField fileTextField = new TextField();
-        fileTextField.setPrefWidth(400.0);
-        grid.add(fileTextField, 1, 0);
+        this.simulationParametersTextField = new TextField();
+        this.simulationParametersTextField.setPrefWidth(400.0);
+        grid.add(this.simulationParametersTextField, 1, 0, 3, 1);
         
-        Button btn = new Button("Carregar");
-        btn.setPrefWidth(100.0);
-        grid.add(btn, 2, 0);
+        this.loadSimulationParametersButton = new Button("Carregar");
+        this.loadSimulationParametersButton.setPrefWidth(100.0);
+        grid.add(this.loadSimulationParametersButton, 5, 0);
         
-        btn.setOnAction(((event) -> {
-            if ( fileTextField.getText().length() > 0 ) {
-                simulationSetup.setSimulationParametersFilePath(fileTextField.getText());
+        this.loadSimulationParametersButton.setOnAction(((event) -> {
+            if ( this.simulationParametersTextField.getText().length() > 0 ) {
+                this.simulationSetup.setSimulationParametersFilePath(this.simulationParametersTextField.getText());
                 try {
-                    simulationSetup.setTraceTextArea(this.traceTextArea);
-                    simulationSetup.loadSimulationParameters();
+                    this.simulationSetup.setTraceTextArea(this.traceTextArea);
+                    this.simulationSetup.loadSimulationParameters();
                     this.eventsTextField.setDisable(false);
                     this.loadEventsButton.setDisable(false);
                 } catch (IOException ex) {
@@ -132,7 +147,7 @@ public class PhoneMessageSimulation extends Application {
         }));
     }
     
-    private void createSetupEventsBlock(GridPane grid, SimulationSetup simulationSetup) {
+    private void createSetupEventsBlock(GridPane grid) {
         Label label = new Label("Nome do arquivo de eventos: ");
         label.setPrefWidth(230.0);
         label.setAlignment(Pos.CENTER_RIGHT);
@@ -141,18 +156,27 @@ public class PhoneMessageSimulation extends Application {
         this.eventsTextField = new TextField();
         this.eventsTextField.setPrefWidth(400.0);
         this.eventsTextField.setDisable(true);
-        grid.add(this.eventsTextField, 1, 1);
+        grid.add(this.eventsTextField, 1, 1, 3, 1);
         
         this.loadEventsButton = new Button("Carregar");
         this.loadEventsButton.setPrefWidth(100.0);
         this.loadEventsButton.setDisable(true);
-        grid.add(this.loadEventsButton, 2, 1);
+        grid.add(this.loadEventsButton, 5, 1);
         
         this.loadEventsButton.setOnAction(((event) -> {
             if ( this.eventsTextField.getText().length() > 0 ) {
-                simulationSetup.setEventsFilePath(this.eventsTextField.getText());
+                this.simulationSetup.setEventsFilePath(this.eventsTextField.getText());
                 try {
-                    simulationSetup.loadEvents();
+                    this.simulationSetup.loadEvents();
+                    this.simulation = this.simulationSetup.getSimulation();
+                    this.closeSetupButton.setDisable(false);
+                    this.resetSetupButton.setDisable(false);
+                    
+                    this.simulationParametersTextField.setDisable(true);
+                    this.loadSimulationParametersButton.setDisable(true);
+                    
+                    this.eventsTextField.setDisable(true);
+                    this.loadEventsButton.setDisable(true);
                 } catch (IOException ex) {
                     Utils.alertWithMessage("Falha na leitura do arquivo!");
                 }
@@ -167,11 +191,48 @@ public class PhoneMessageSimulation extends Application {
         this.traceTextArea = new TextArea();
         this.traceTextArea.setEditable(false);
         
-        grid.add(this.traceTextArea, 1, 3, 1, 2);
+        grid.add(this.traceTextArea, 1, 3, 3, 2);
     }
     
     private void createSetupSaveBlock(GridPane grid) {
-        this.startSimulation.setDisable(false);
+        Button btn_space = new Button("Space button");
+        btn_space.setPrefWidth(250.0);
+        btn_space.setVisible(false);
+        grid.add(btn_space, 1, 5);
+        
+        this.resetSetupButton = new Button("Resetar");
+        this.resetSetupButton.setPrefWidth(150.0);
+        this.resetSetupButton.setDisable(true);
+        grid.add(this.resetSetupButton, 2, 5);
+        
+        this.resetSetupButton.setOnAction(((event) -> {
+            this.simulationParametersTextField.setText("");
+            this.simulationParametersTextField.setDisable(false);
+            this.loadSimulationParametersButton.setDisable(false);
+            
+            this.eventsTextField.setText("");
+            this.eventsTextField.setDisable(true);
+            this.loadEventsButton.setDisable(true);
+            
+            this.traceTextArea.setText("");
+            
+            this.simulationSetup = null;
+            this.simulation = null;
+            this.startSimulation.setDisable(true);
+            
+            this.closeSetupButton.setDisable(true);
+            this.resetSetupButton.setDisable(true);
+        }));
+        
+        this.closeSetupButton = new Button("Fechar");
+        this.closeSetupButton.setPrefWidth(150.0);
+        this.closeSetupButton.setDisable(true);
+        grid.add(this.closeSetupButton, 3, 5);
+        
+        this.closeSetupButton.setOnAction(((event) -> {
+            this.startSimulation.setDisable(false);
+            this.setupStage.hide();
+        }));
     }
     
     private void createRunWindow() {

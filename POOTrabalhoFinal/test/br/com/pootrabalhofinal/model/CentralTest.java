@@ -284,4 +284,33 @@ public class CentralTest {
         
         assertEquals(central.getMessages().lastElement(), message);
     }
+    
+    /**
+     * Test of getAntennaByIdentifier method, of class Central
+     */
+    @Test
+    public void testGetAntennaByIdentifier() {
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        central.addAntenna(antenna);
+        
+        assertEquals(central.getAntennaByIdentifier("Antenna 1"), antenna);
+    }
+    
+    /**
+     * Test of getPhoneByIdentifier method, of class Central
+     */
+    @Test
+    public void testGetPhoneByIdentifier() {
+        Central central = new Central("Central 1", 4, new Range(10, 50));
+        
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(10, 50), central);
+        central.addAntenna(antenna);
+        
+        Phone phone = new Phone("Phone 0", antenna);
+        antenna.addPhone(phone);
+        
+        assertEquals(central.getPhoneByIdentifier("Phone 0"), phone);
+    }
 }

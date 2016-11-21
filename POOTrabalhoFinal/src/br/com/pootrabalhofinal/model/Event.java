@@ -43,4 +43,10 @@ public class Event {
         this.destinationPhone = destinationPhone;
     }
     
+    @Override
+    public String toString() {
+        return "Do telefone: " + getOriginPhone().getIdentifier() + " - "
+                + " para o telefone: " + " - " + getDestinationPhone().getIdentifier();
+    }
+    
 }

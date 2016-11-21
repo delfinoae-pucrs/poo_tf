@@ -40,6 +40,21 @@ public class Antenna {
     }
     
     /**
+     * Find and return a phone by identifier
+     * 
+     * @param identifier identifier to find
+     * @return Phone
+     */
+    public Phone getPhoneByIdentifier(String identifier) {
+        for ( Phone phone: getPhones()) {
+            if ( phone.getIdentifier().equals(identifier) ) {
+                return phone;
+            }
+        }
+        return null;
+    }
+    
+    /**
      * Add a phone to list
      * 
      * @param phone phone to add
