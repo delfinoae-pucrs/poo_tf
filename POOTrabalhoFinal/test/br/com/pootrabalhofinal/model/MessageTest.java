@@ -167,4 +167,64 @@ public class MessageTest {
         assertEquals(message.getStatus(), MessageStatus.FAILURE_DELIVERED);
     }
     
+    /**
+     * Test of isWaitForNextTime method, of class Message.
+     */
+    @Test
+    public void testIsWaitForNextTime() {
+        System.out.println("setStatus");
+        
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        message.setWaitForNextTime(true);
+        
+        assertTrue(message.isWaitForNextTime());
+    }
+    
+    /**
+     * Test of setWaitForNextTime method, of class Message.
+     */
+    @Test
+    public void testSetWaitForNextTime() {
+        System.out.println("setStatus");
+        
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        message.setWaitForNextTime(false);
+        message.setWaitForNextTime(true);
+        
+        assertTrue(message.isWaitForNextTime());
+    }
+    
+    /**
+     * Test of equals method, of class Message.
+     */
+    @Test
+    public void testEquals() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone1 = new Phone("Phone 0", antenna);
+        Phone destinationPhone1 = new Phone("Phone 1", antenna);
+        
+        Phone originPhone2 = new Phone("Phone 0", antenna);
+        Phone destinationPhone2 = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone1, destinationPhone1, MessageStatus.SEND_TO_ANTENNA);
+        Message message2 = new Message(originPhone2, destinationPhone2, MessageStatus.SEND_TO_ANTENNA);
+        
+        boolean sameMessage = message.equals(message2);
+        assertTrue(sameMessage);
+    }
+    
 }

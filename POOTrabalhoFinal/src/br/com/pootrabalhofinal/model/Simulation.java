@@ -6,7 +6,10 @@
 package br.com.pootrabalhofinal.model;
 
 import br.com.pootrabalhofinal.utils.Range;
+import br.com.pootrabalhofinal.utils.Utils;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,7 +48,19 @@ public class Simulation {
      * 
      */
     public void run() {
+        int duration = getDuration();
         
+        while(duration > 0) {
+            Utils.debug("Unidade de tempo: " + String.valueOf(duration));
+            
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            duration--;
+        }
     }
     
     /**

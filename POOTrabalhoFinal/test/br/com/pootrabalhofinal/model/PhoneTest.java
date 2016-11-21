@@ -5,7 +5,9 @@
  */
 package br.com.pootrabalhofinal.model;
 
+import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -138,6 +140,234 @@ public class PhoneTest {
         instance.setIdentifier(newIdentifier);
         
         assertEquals(instance.getIdentifier(), newIdentifier);
+    }
+    
+    /**
+     * Test of getMessagesOutbox method, of class Phone.
+     */
+    @Test
+    public void testGetMessagesOutbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        
+        ArrayList<Message> messagesOutbox = new ArrayList<>();
+        messagesOutbox.add(message);
+        
+        originPhone.setMessagesOutbox(messagesOutbox);
+        
+        assertArrayEquals(originPhone.getMessagesOutbox().toArray(), messagesOutbox.toArray());
+    }
+    
+    /**
+     * Test of setMessagesOutbox method, of class Phone.
+     */
+    @Test
+    public void testSetMessagesOutbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        
+        ArrayList<Message> messagesOutbox = new ArrayList<>();
+        messagesOutbox.add(message);
+        
+        originPhone.setMessagesOutbox(messagesOutbox);
+        
+        assertArrayEquals(originPhone.getMessagesOutbox().toArray(), messagesOutbox.toArray());
+    }
+    
+    /**
+     * Test of getMessagesSentbox method, of class Phone.
+     */
+    @Test
+    public void testGetMessagesSentbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        ArrayList<Message> messagesSent = new ArrayList<>();
+        messagesSent.add(message);
+        
+        originPhone.setMessagesSentbox(messagesSent);
+        
+        assertArrayEquals(originPhone.getMessagesSentbox().toArray(), messagesSent.toArray());
+    }
+    
+    /**
+     * Test of setMessagesSentbox method, of class Phone.
+     */
+    @Test
+    public void testSetMessagesSentbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        ArrayList<Message> messagesSent = new ArrayList<>();
+        messagesSent.add(message);
+        
+        originPhone.setMessagesSentbox(messagesSent);
+        
+        assertArrayEquals(originPhone.getMessagesSentbox().toArray(), messagesSent.toArray());
+    }
+    
+    /**
+     * Test of getMessagesInbox method, of class Phone.
+     */
+    @Test
+    public void testGetMessagesInbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        ArrayList<Message> messagesInbox = new ArrayList<>();
+        messagesInbox.add(message);
+        
+        originPhone.setMessagesInbox(messagesInbox);
+        
+        assertArrayEquals(originPhone.getMessagesInbox().toArray(), messagesInbox.toArray());
+    }
+    
+    /**
+     * Test of setMessagesInbox method, of class Phone.
+     */
+    @Test
+    public void testSetMessagesInbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        
+        ArrayList<Message> messagesInbox = new ArrayList<>();
+        messagesInbox.add(message);
+        
+        originPhone.setMessagesInbox(messagesInbox);
+        
+        assertArrayEquals(originPhone.getMessagesInbox().toArray(), messagesInbox.toArray());
+    }
+    
+    /**
+     * Test of addMessageToOutbox method, of class Phone.
+     */
+    @Test
+    public void testAddMessageToOutbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        originPhone.addMessageToOutbox(message);
+        
+        assertEquals(originPhone.getMessagesOutbox().get(0), message);
+    }
+    
+    /**
+     * Test of addMessageToOutbox method and status of message, of class Phone.
+     */
+    @Test
+    public void testAddMessageToOutboxSetStatus() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SUCCESSFUL);
+        originPhone.addMessageToOutbox(message);
+        
+        assertEquals(originPhone.getMessagesOutbox().get(0).getStatus(), MessageStatus.SEND_TO_ANTENNA);
+    }
+    
+    /**
+     * Test of addMessageToSentbox method, of class Phone.
+     */
+    @Test
+    public void testAddMessageToSentbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        originPhone.addMessageToSentbox(message);
+        
+        assertEquals(originPhone.getMessagesSentbox().get(0), message);
+    }
+    
+    /**
+     * Test of addMessageToSentbox method and status of message, of class Phone.
+     */
+    @Test
+    public void testAddMessageToSentboxSetStatus() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        originPhone.addMessageToSentbox(message);
+        
+        assertEquals(originPhone.getMessagesSentbox().get(0).getStatus(), MessageStatus.SUCCESSFUL);
+    }
+    
+    /**
+     * Test of addMessageToInbox method, of class Phone.
+     */
+    @Test
+    public void testAddMessageToInbox() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        originPhone.addMessageToInbox(message);
+        
+        assertEquals(originPhone.getMessagesInbox().get(0), message);
+    }
+    
+    /**
+     * Test of addMessageToInbox method and status of message, of class Phone.
+     */
+    @Test
+    public void testAddMessageToInboxSetStatus() {
+        Central central = new Central("Central 1", 3, new Range(0, 5));
+        Antenna antenna = new Antenna("Antenna 1", 5, new Range(0, 6), central); 
+        
+        Phone originPhone = new Phone("Phone 0", antenna);
+        Phone destinationPhone = new Phone("Phone 1", antenna);
+        
+        Message message = new Message(originPhone, destinationPhone, MessageStatus.SEND_TO_ANTENNA);
+        originPhone.addMessageToInbox(message);
+        
+        assertEquals(originPhone.getMessagesInbox().get(0).getStatus(), MessageStatus.SUCCESSFUL);
     }
 
 }

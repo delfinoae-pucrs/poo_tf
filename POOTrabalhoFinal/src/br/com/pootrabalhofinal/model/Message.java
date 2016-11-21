@@ -15,6 +15,7 @@ public class Message {
     private Phone originPhone;
     private Phone destinationPhone;
     private MessageStatus status;
+    private boolean waitForNextTime;
     
     /**
      * Constructor
@@ -55,5 +56,20 @@ public class Message {
     public void setStatus(MessageStatus status) {
         this.status = status;
     }
+
+    public boolean isWaitForNextTime() {
+        return waitForNextTime;
+    }
+
+    public void setWaitForNextTime(boolean waitForNextTime) {
+        this.waitForNextTime = waitForNextTime;
+    }
     
+    public boolean equals(Message otherMessage) {
+        boolean sameOriginPhone = getOriginPhone().getIdentifier().equals(otherMessage.getOriginPhone().getIdentifier());
+        boolean sameDestinationPhone = getDestinationPhone().getIdentifier().equals(otherMessage.getDestinationPhone().getIdentifier());
+        boolean sameStatus = getStatus().equals(otherMessage.getStatus());
+        
+        return sameOriginPhone && sameDestinationPhone && sameStatus;
+    }
 }

@@ -11,7 +11,19 @@ package br.com.pootrabalhofinal.utils;
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
 public enum MessageStatus {
-
+    
+    /**
+     * Message to send to antenna
+     */
+    SEND_TO_ANTENNA,
+    /**
+     * Message to send to central
+     */
+    SEND_TO_CENTRAL,
+    /**
+     * Message to send to phone
+     */
+    SEND_TO_PHONE,
     /**
      * Message delivered successful
      */
