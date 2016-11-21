@@ -41,6 +41,14 @@ public class Simulation {
     }
     
     /**
+     * Run the simulation
+     * 
+     */
+    public void run() {
+        
+    }
+    
+    /**
      * Add event to list
      * 
      * @param event event to add

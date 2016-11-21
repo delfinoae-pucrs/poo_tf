@@ -19,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 
 /**
@@ -67,16 +69,25 @@ public class PhoneMessageSimulation extends Application {
             createSetupWindow();
         });
         
+        Label lblRunning = new Label("Executando simulação...");
+        lblRunning.setVisible(false);
+        lblRunning.setMaxWidth(Double.MAX_VALUE);
+        lblRunning.setAlignment(Pos.CENTER);
+        lblRunning.setFont(Font.font("Arial", FontPosture.ITALIC, 12));
+        
         this.startSimulation = new Button("Iniciar Simulação");
         this.startSimulation.setMaxWidth(Double.MAX_VALUE);
         this.startSimulation.setDisable(true);
         this.startSimulation.setOnAction((ActionEvent event) -> {
-            createRunWindow();
+            this.startSimulation.setDisable(true);
+            lblRunning.setVisible(true);
+            this.simulation.run();
         });
         
         grid.add(lblWelcome,            0, 0);
         grid.add(btnSetup,              0, 2);
         grid.add(this.startSimulation,  0, 3);
+        grid.add(lblRunning,            0, 4);
         
         Scene scene = new Scene(grid, 400, 200);
         this.welcomeStage.setTitle("Simulador de Mensagens entre Telefone Celulares");
@@ -123,6 +134,7 @@ public class PhoneMessageSimulation extends Application {
         
         this.simulationParametersTextField = new TextField();
         this.simulationParametersTextField.setPrefWidth(400.0);
+        this.simulationParametersTextField.setText("/Users/allanederich/Desktop/INSTANCIACAO1.txt");
         grid.add(this.simulationParametersTextField, 1, 0, 3, 1);
         
         this.loadSimulationParametersButton = new Button("Carregar");
@@ -156,6 +168,7 @@ public class PhoneMessageSimulation extends Application {
         this.eventsTextField = new TextField();
         this.eventsTextField.setPrefWidth(400.0);
         this.eventsTextField.setDisable(true);
+        this.eventsTextField.setText("/Users/allanederich/Desktop/EVENTOS1.txt");
         grid.add(this.eventsTextField, 1, 1, 3, 1);
         
         this.loadEventsButton = new Button("Carregar");
@@ -216,7 +229,7 @@ public class PhoneMessageSimulation extends Application {
             
             this.traceTextArea.setText("");
             
-            this.simulationSetup = null;
+            this.simulationSetup = new SimulationSetup();
             this.simulation = null;
             this.startSimulation.setDisable(true);
             
@@ -233,10 +246,6 @@ public class PhoneMessageSimulation extends Application {
             this.startSimulation.setDisable(false);
             this.setupStage.hide();
         }));
-    }
-    
-    private void createRunWindow() {
-        
     }
 
     /**
