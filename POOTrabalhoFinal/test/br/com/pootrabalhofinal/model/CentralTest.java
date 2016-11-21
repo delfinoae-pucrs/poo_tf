@@ -66,41 +66,6 @@ public class CentralTest {
     }
     
     /**
-     * Test of getIdentifier method, of class Central.
-     */
-    @Test
-    public void testGetIdentifier() {
-        System.out.println("getIdentifier");
-        
-        String centralIdentifier = "Central 1";
-        int centralprocessorsQuantity = 5;
-        Range centralProcessorsTimeInterval = new Range(0, 5);
-        Central instance = new Central(centralIdentifier, centralprocessorsQuantity, centralProcessorsTimeInterval);
-
-        String expResult = "Central 1";
-        String result = instance.getIdentifier();
-        
-        assertEquals(result, expResult);
-    }
-
-    /**
-     * Test of setIdentifier method, of class Central.
-     */
-    @Test
-    public void testSetIdentifier() {
-        System.out.println("setIdentifier");
-        String centralIdentifier = "Central 1";
-        int centralprocessorsQuantity = 5;
-        Range centralProcessorsTimeInterval = new Range(0, 5);
-        Central instance = new Central(centralIdentifier, centralprocessorsQuantity, centralProcessorsTimeInterval);
-
-        String newIdentifier = "Central 3";
-        instance.setIdentifier(newIdentifier);
-        
-        assertEquals(instance.getIdentifier(), newIdentifier);
-    }
-
-    /**
      * Test of getProcessorsQuantity method, of class Central.
      */
     @Test

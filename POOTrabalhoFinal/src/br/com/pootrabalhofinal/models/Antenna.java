@@ -12,11 +12,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- *
+ * This class represents an antenna of communication
+ * 
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
-public class Antenna implements IMessage {
-    private String identifier;
+public class Antenna extends Device implements IMessage {
     private int queueCapacity;
     private Range attendanceTimeInterval;
     
@@ -34,7 +34,8 @@ public class Antenna implements IMessage {
      * @param central central of the antenna is connected
      */
     public Antenna(String identifier, int queueCapacity, Range attendanceTimeInterval, Central central) {
-        this.identifier = identifier;
+        super(identifier);
+        
         this.queueCapacity = queueCapacity;
         this.attendanceTimeInterval = attendanceTimeInterval;
         this.central = central;
@@ -87,14 +88,6 @@ public class Antenna implements IMessage {
 
     public void setAttendanceTimeInterval(Range attendanceTimeInterval) {
         this.attendanceTimeInterval = attendanceTimeInterval;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
     }
 
     public int getQueueCapacity() {

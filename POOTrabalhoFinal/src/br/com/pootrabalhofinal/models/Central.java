@@ -14,8 +14,7 @@ import java.util.Stack;
  *
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
-public class Central implements IMessage {
-    private String identifier;
+public class Central extends Device implements IMessage {
     private int processorsQuantity;
     private Range processorsTimeInterval;
     
@@ -26,9 +25,7 @@ public class Central implements IMessage {
     /**
      * Constructor
      */
-    public Central() {
-        
-    }
+    public Central() {}
     
     /**
      * Constructor
@@ -38,7 +35,7 @@ public class Central implements IMessage {
      * @param processorsTimeInterval time interval of attendance of the processors of the central
      */
     public Central(String identifier, int processorsQuantity, Range processorsTimeInterval) {
-        this.identifier = identifier;
+        super(identifier);
         this.processorsQuantity = processorsQuantity;
         this.processorsTimeInterval = processorsTimeInterval;
     }
@@ -101,14 +98,6 @@ public class Central implements IMessage {
     /*
      * Getters and Setters
      */
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
     public int getProcessorsQuantity() {
         return processorsQuantity;
     }

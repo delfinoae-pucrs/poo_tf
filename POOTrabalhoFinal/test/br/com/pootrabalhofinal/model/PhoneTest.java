@@ -101,50 +101,6 @@ public class PhoneTest {
         
         assertEquals(instance.getAntenna(),otherAntenna);
     }
-
-    /**
-     * Test of getIdentifier method, of class Phone.
-     */
-    @Test
-    public void testGetIdentifier() {
-        System.out.println("getIdentifier");
-        String identifierCentral = "Central 1";
-        String identifierAntenna = "Antenna 1";
-        String identifierPhone = "Phone 1";
-        Range attendanceTimeInterval = new Range(10, 50);
-        int queueCapacityAntenna = 5;
-        int queueCapacityCentral = 4;
-        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
-        Antenna ant = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
-        Phone instance = new Phone(identifierPhone, ant);
-        
-        String expResult = "Phone 1";
-        String result = instance.getIdentifier();
-        
-        assertEquals(result, expResult);
-    }
-
-    /**
-     * Test of setIdentifier method, of class Phone.
-     */
-    @Test
-    public void testSetIdentifier() {
-        System.out.println("setIdentifier");
-        String identifierCentral = "Central 1";
-        String identifierAntenna = "Antenna 1";
-        String identifierPhone = "Phone 1";
-        Range attendanceTimeInterval = new Range(10, 50);
-        int queueCapacityAntenna = 5;
-        int queueCapacityCentral = 4;
-        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
-        Antenna ant = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
-        Phone instance = new Phone(identifierPhone, ant);
-        
-        String newIdentifier = "Phone 3";
-        instance.setIdentifier(newIdentifier);
-        
-        assertEquals(instance.getIdentifier(), newIdentifier);
-    }
     
     /**
      * Test of getMessagesOutbox method, of class Phone.

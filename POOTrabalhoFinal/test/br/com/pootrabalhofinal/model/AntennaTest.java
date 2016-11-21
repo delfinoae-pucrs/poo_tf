@@ -99,47 +99,6 @@ public class AntennaTest {
     }
 
     /**
-     * Test of getIdentifier method, of class Antenna.
-     */
-    @Test
-    public void testGetIdentifier() {
-        System.out.println("getIdentifier");
-        String expResult = "Antenna 1";
-        String identifierCentral = "Central 1";
-        String identifierAntenna = "Antenna 1";
-        Range attendanceTimeInterval = new Range(10, 50);
-        int queueCapacityAntenna = 5;
-        int queueCapacityCentral = 4;
-        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
-        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
-        
-        String result = instance.getIdentifier();
-        
-        assertEquals(result, expResult);
-    }
-
-    /**
-     * Test of setIdentifier method, of class Antenna.
-     */
-    @Test
-    public void testSetIdentifier() {
-        System.out.println("setIdentifier");
-        String newIdentifier = "Anntena 3";
-        String identifierCentral = "Central 1";
-        String identifierAntenna = "Antenna 1";
-        Range attendanceTimeInterval = new Range(10, 50);
-        int queueCapacityAntenna = 5;
-        int queueCapacityCentral = 4;
-        Central c = new Central(identifierCentral, queueCapacityCentral, attendanceTimeInterval);
-        Antenna instance = new Antenna(identifierAntenna, queueCapacityAntenna, attendanceTimeInterval, c);
-        
-        instance.setIdentifier(newIdentifier);
-        String expResult = "Anntena 3";
-        
-        assertEquals(instance.getIdentifier(), expResult);
-    }
-
-    /**
      * Test of getQueueCapacity method, of class Antenna.
      */
     @Test

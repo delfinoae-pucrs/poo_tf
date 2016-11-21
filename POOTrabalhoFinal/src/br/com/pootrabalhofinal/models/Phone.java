@@ -13,8 +13,7 @@ import java.util.ArrayList;
  *
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
-public class Phone implements IMessage {
-    private String identifier;
+public class Phone extends Device implements IMessage {
     private Antenna antenna;
     
     private ArrayList<Message> messagesOutbox = new ArrayList<>();
@@ -28,7 +27,7 @@ public class Phone implements IMessage {
      * @param antenna antenna connected to the phone
      */
     public Phone(String identifier, Antenna antenna) {
-        this.identifier = identifier;
+        super(identifier);
         this.antenna = antenna;
     }
     
@@ -81,14 +80,6 @@ public class Phone implements IMessage {
 
     public void setAntenna(Antenna antenna) {
         this.antenna = antenna;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
     }
     
     public ArrayList<Message> getMessagesOutbox() {
