@@ -6,6 +6,7 @@
 package br.com.pootrabalhofinal.models;
 
 import br.com.pootrabalhofinal.protocols.IMessage;
+import br.com.pootrabalhofinal.utils.Logger;
 import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
@@ -42,31 +43,46 @@ public class Central extends Device implements IMessage {
     }
     
     @Override
-    public void updateMessages() {
+    public void updateMessages(Logger logger) {
         if (getMessages().size() > 0) {
+            logger.addLog("Tamanho da pilha da central: " + String.valueOf(getMessages().size()));
             Message message = getMessages().peek();
+            logger.addLog("Mensagem do topo da pilha: " + message.toString());
             if ( message.getStatus() == MessageStatus.CENTRAL_TO_ORIGIN_ANTENNA ) {
+                logger.addLog("Esta mensagem deve retornar para a antena de origem");
                 Message messageRemoved = getMessages().pop();
-                
                 Antenna originAntenna = message.getOriginPhone().getAntenna();
+                logger.addLog("Antena de origem: " + originAntenna.toString());
                 if ( originAntenna.isQueueExhausted() ) {
+                    logger.addLog("Antena de origem lotada. Mensagem foi perdida.");
+                    logger.addLog("Status da mensagem alterado para: " + MessageStatus.FAILURE_NOT_DELIVERED);
                     message.setStatus(MessageStatus.FAILURE_NOT_DELIVERED);
                 }
                 else {
+                    logger.addLog("Antena de origem com espaço. Mensagem foi enviada para a antena de origem.");
                     originAntenna.addMessage(messageRemoved);
                 }
             }
             else if ( message.getStatus() == MessageStatus.CENTRAL_TO_DESTINATION_ANTENNA ) {
+                logger.addLog("Esta mensagem deve ir para a antena de destino");
                 Antenna destinationAntenna = message.getDestinationPhone().getAntenna();
+                logger.addLog("Antena de destino: " + destinationAntenna.toString());
                 if ( destinationAntenna.isQueueExhausted() ) {
+                    logger.addLog("Antena de destino lotada. Mensagem deve ser enviada para a antena de origem.");
+                    logger.addLog("Status da mensagem alterado para: " + MessageStatus.CENTRAL_TO_ORIGIN_ANTENNA);
                     message.setStatus(MessageStatus.CENTRAL_TO_ORIGIN_ANTENNA);
                 }
                 else {
+                    logger.addLog("Antena de destino com espaço. Mensagem deve ser enviada para a antena de destino.");
+                    logger.addLog("Status da mensagem alterado para: " + MessageStatus.ANTENNA_TO_PHONE);
                     message.setStatus(MessageStatus.ANTENNA_TO_PHONE);
                     message.setWaitForNextTime(true);
-                    destinationAntenna.addMessage(getMessages().pop());
+                    destinationAntenna.addMessage(this.messages.pop());
                 }
             }
+        }
+        else {
+            logger.addLog("Não há mensagens na central.");
         }
     }
     

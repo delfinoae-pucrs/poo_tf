@@ -6,6 +6,7 @@
 package br.com.pootrabalhofinal;
 
 import br.com.pootrabalhofinal.models.Simulation;
+import br.com.pootrabalhofinal.utils.Logger;
 import br.com.pootrabalhofinal.utils.SimulationSetup;
 import br.com.pootrabalhofinal.utils.Utils;
 import java.io.IOException;
@@ -75,6 +76,27 @@ public class PhoneMessageSimulation extends Application {
         lblRunning.setAlignment(Pos.CENTER);
         lblRunning.setFont(Font.font("Arial", FontPosture.ITALIC, 12));
         
+        Button btnTrace = new Button("Exibir Trace");
+        btnTrace.setVisible(false);
+        btnTrace.setMaxWidth(Double.MAX_VALUE);
+        btnTrace.setOnAction((ActionEvent event) -> {
+            createTraceWindow();
+        });
+        
+        Button btnResultScreen = new Button("Exibir Resultado em Tela");
+        btnResultScreen.setVisible(false);
+        btnResultScreen.setMaxWidth(Double.MAX_VALUE);
+        btnResultScreen.setOnAction((ActionEvent event) -> {
+//            createTraceWindow();
+        });
+        
+        Button btnResultFile = new Button("Exibir Resultado em Arquivo");
+        btnResultFile.setVisible(false);
+        btnResultFile.setMaxWidth(Double.MAX_VALUE);
+        btnResultFile.setOnAction((ActionEvent event) -> {
+//            createTraceWindow();
+        });
+        
         this.startSimulation = new Button("Iniciar Simulação");
         this.startSimulation.setMaxWidth(Double.MAX_VALUE);
         this.startSimulation.setDisable(true);
@@ -82,14 +104,22 @@ public class PhoneMessageSimulation extends Application {
             this.startSimulation.setDisable(true);
             lblRunning.setVisible(true);
             this.simulation.run();
+            
+            lblRunning.setVisible(false);
+            btnTrace.setVisible(true);
+            btnResultScreen.setVisible(true);
+            btnResultFile.setVisible(true);
         });
         
         grid.add(lblWelcome,            0, 0);
         grid.add(btnSetup,              0, 2);
         grid.add(this.startSimulation,  0, 3);
         grid.add(lblRunning,            0, 4);
+        grid.add(btnTrace,              0, 5);
+        grid.add(btnResultScreen,       0, 6);
+        grid.add(btnResultFile,         0, 7);
         
-        Scene scene = new Scene(grid, 400, 200);
+        Scene scene = new Scene(grid, 500, 300);
         this.welcomeStage.setTitle("Simulador de Mensagens entre Telefone Celulares");
         this.welcomeStage.setScene(scene);
         this.welcomeStage.show();
@@ -246,6 +276,33 @@ public class PhoneMessageSimulation extends Application {
             this.startSimulation.setDisable(false);
             this.setupStage.hide();
         }));
+    }
+    
+    private void createTraceWindow() {
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.TOP_CENTER);
+//        grid.setGridLinesVisible(true);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setHgap(10);
+        grid.setVgap(10);
+        
+        TextArea traceTA = new TextArea();
+        traceTA.setEditable(false);
+        traceTA.setPrefHeight(500);
+        this.simulation.getLogger().getLogs().forEach((log) -> {
+            traceTA.appendText(log);
+        });
+        
+        grid.add(traceTA, 0, 0, 3, 3);
+        
+        Scene scene = new Scene(grid, 600, 600);
+        
+        Stage newStage = new Stage();
+        newStage.setX(this.welcomeStage.getX() - 350);
+        newStage.setY(this.welcomeStage.getY() - 100);
+        newStage.setTitle("Trace de eventos");
+        newStage.setScene(scene);
+        newStage.show();
     }
 
     /**

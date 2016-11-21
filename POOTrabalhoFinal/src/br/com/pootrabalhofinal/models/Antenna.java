@@ -6,6 +6,7 @@
 package br.com.pootrabalhofinal.models;
 
 import br.com.pootrabalhofinal.protocols.IMessage;
+import br.com.pootrabalhofinal.utils.Logger;
 import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import java.util.ArrayList;
@@ -43,26 +44,42 @@ public class Antenna extends Device implements IMessage {
     }
     
     @Override
-    public void updateMessages() {
+    public void updateMessages(Logger logger) {
+        logger.addLog("Atualizar mensagens da antena: " + toString());
         if ( getMessages().size() > 0 ) {
+            logger.addLog("Tamanho da fila da antena: " + String.valueOf(getMessages().size()));
             Message message = getMessages().peek();
+            logger.addLog("Primeira mensagem da fila: " + message.toString());
             if ( !message.isWaitForNextTime() ) {
                 Message messageRemoved = getMessages().remove();
                 
                 if ( messageRemoved.getStatus() == MessageStatus.ANTENNA_TO_CENTRAL ) {
+                    logger.addLog("Status atual da mensagem: " + messageRemoved.getStatus());
                     messageRemoved.setStatus(MessageStatus.CENTRAL_TO_DESTINATION_ANTENNA);
+                    logger.addLog("Status alterado para: " + messageRemoved.getStatus());
                     getCentral().addMessage(messageRemoved);
+                    logger.addLog("Mensagem adicionada na central.");
                 }
                 else if ( message.getStatus() == MessageStatus.ANTENNA_TO_PHONE ) {
+                    logger.addLog("Status atual da mensagem: " + messageRemoved.getStatus());
                     messageRemoved.setStatus(MessageStatus.SUCCESSFUL);
+                    logger.addLog("Status alterado para: " + messageRemoved.getStatus());
                     
                     Phone destinationPhone = messageRemoved.getDestinationPhone();
                     destinationPhone.addMessageToInbox(messageRemoved);
+                    logger.addLog("Mensagem adicionada na caixa de entrada do telefone: " + destinationPhone.toString());
                     
                     Phone originPhone = messageRemoved.getOriginPhone();
                     originPhone.addMessageToSentbox(messageRemoved);
+                    logger.addLog("Mensagem adicionada na caixa de itens enviados do telefone: " + originPhone.toString());
                 }
             }
+            else {
+                logger.addLog("Mensagem está aguardando próximo estado de tempo.");
+            }
+        }
+        else {
+            logger.addLog("Não há mensagens na antena.");
         }
     }
     

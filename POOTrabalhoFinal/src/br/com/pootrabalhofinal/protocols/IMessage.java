@@ -5,10 +5,12 @@
  */
 package br.com.pootrabalhofinal.protocols;
 
+import br.com.pootrabalhofinal.utils.Logger;
+
 /**
  *
  * @author Allan Ederich <delfino.ae@gmail.com>
  */
 public interface IMessage {
-    public void updateMessages();
+    public void updateMessages(Logger logger);
 }

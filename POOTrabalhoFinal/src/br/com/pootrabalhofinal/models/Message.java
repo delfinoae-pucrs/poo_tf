@@ -90,4 +90,11 @@ public class Message {
         
         return sameOriginPhone && sameDestinationPhone && sameStatus;
     }
+    
+    @Override
+    public String toString() {
+        return "Do telefone: " + getOriginPhone().getIdentifier() + " - "
+                + "Para o telefone: " + getDestinationPhone().getIdentifier() + " - "
+                + "Status atual: " + getStatus();
+    }
 }

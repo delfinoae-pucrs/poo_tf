@@ -6,6 +6,7 @@
 package br.com.pootrabalhofinal.models;
 
 import br.com.pootrabalhofinal.protocols.IMessage;
+import br.com.pootrabalhofinal.utils.Logger;
 import br.com.pootrabalhofinal.utils.MessageStatus;
 import java.util.ArrayList;
 
@@ -32,15 +33,18 @@ public class Phone extends Device implements IMessage {
     }
     
     @Override
-    public void updateMessages() {
+    public void updateMessages(Logger logger) {
+        logger.addLog("Atualizar mensagens do telefone: " + toString());
         if ( getMessagesOutbox().size() > 0 ) {
-            
+            logger.addLog("Quantidade de mensagens para enviar do telefone: " + String.valueOf(getMessagesOutbox().size()));
             for(int i = 0; i < getMessagesOutbox().size(); i++) {
                 Message message = getMessagesOutbox().get(i);
-                
+                logger.addLog("Mensagem para enviar: " + message.toString());
                 Message messageCopy = message;
                 messageCopy.setStatus(MessageStatus.ANTENNA_TO_CENTRAL);
+                logger.addLog("Status alterado para: " + message.getStatus());
                 getAntenna().addMessage(messageCopy);
+                logger.addLog("Mensagem adicionada na antena: " + getAntenna().toString());
                 
                 if ( message.getSendQuantity() > 1 ) {
                     message.setSendQuantity(message.getSendQuantity() - 1);
@@ -56,6 +60,9 @@ public class Phone extends Device implements IMessage {
                     }
                 }
             }
+        }
+        else {
+            logger.addLog("Não há mensagens para o telefone.");
         }
     }
     

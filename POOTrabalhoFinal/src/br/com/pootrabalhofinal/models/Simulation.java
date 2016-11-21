@@ -5,12 +5,11 @@
  */
 package br.com.pootrabalhofinal.models;
 
+import br.com.pootrabalhofinal.utils.Logger;
 import br.com.pootrabalhofinal.utils.MessageStatus;
 import br.com.pootrabalhofinal.utils.Range;
 import br.com.pootrabalhofinal.utils.Utils;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +22,8 @@ public class Simulation {
     
     private Central central;
     private ArrayList<Event> events = new ArrayList<>();
+    
+    private Logger logger = new Logger();
     
     /**
      * Constructor
@@ -52,22 +53,22 @@ public class Simulation {
         createMessagesForPhones();
         
         while(duration > 0) {
-            Utils.debug("Unidade de tempo: " + String.valueOf(duration));
+            getLogger().addLog("Unidade de tempo: " + String.valueOf(duration));
             
             // Update messages of central
-            this.central.updateMessages();
+            this.central.updateMessages(getLogger());
             
             // Update messages of antennas
             ArrayList<Antenna> antennas = this.central.getAntennas();
             antennas.forEach((antenna) -> {
-                antenna.updateMessages();
+                antenna.updateMessages(getLogger());
             });
             
             // Update messages of phones
             antennas.forEach((antenna) -> {
                 ArrayList<Phone> phones = antenna.getPhones();
                 phones.forEach((phone) -> {
-                    phone.updateMessages();
+                    phone.updateMessages(getLogger());
                 });
             });
             duration--;
@@ -141,6 +142,14 @@ public class Simulation {
     }
     public void setEvents(ArrayList<Event> events) {
         this.events = events;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
     
 }
