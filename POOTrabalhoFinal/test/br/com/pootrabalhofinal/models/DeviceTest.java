@@ -5,6 +5,7 @@
  */
 package br.com.pootrabalhofinal.models;
 
+import br.com.pootrabalhofinal.models.Device;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
