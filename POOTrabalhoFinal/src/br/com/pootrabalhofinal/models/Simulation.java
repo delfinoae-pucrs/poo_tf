@@ -70,12 +70,6 @@ public class Simulation {
                     phone.updateMessages();
                 });
             });
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-            }
             duration--;
         }
     }

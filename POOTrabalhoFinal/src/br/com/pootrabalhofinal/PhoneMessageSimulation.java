@@ -81,7 +81,7 @@ public class PhoneMessageSimulation extends Application {
         this.startSimulation.setOnAction((ActionEvent event) -> {
             this.startSimulation.setDisable(true);
             lblRunning.setVisible(true);
-//            this.simulation.run();
+            this.simulation.run();
         });
         
         grid.add(lblWelcome,            0, 0);
