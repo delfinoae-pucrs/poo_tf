@@ -87,7 +87,7 @@ public class PhoneMessageSimulation extends Application {
         btnResultScreen.setVisible(false);
         btnResultScreen.setMaxWidth(Double.MAX_VALUE);
         btnResultScreen.setOnAction((ActionEvent event) -> {
-//            createTraceWindow();
+            createResultScreen();
         });
         
         Button btnResultFile = new Button("Exibir Resultado em Arquivo");
@@ -276,6 +276,38 @@ public class PhoneMessageSimulation extends Application {
             this.startSimulation.setDisable(false);
             this.setupStage.hide();
         }));
+    }
+    
+    private void createResultScreen() {
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.TOP_CENTER);
+//        grid.setGridLinesVisible(true);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setHgap(10);
+        grid.setVgap(10);
+        
+        TextArea traceTA = new TextArea();
+        traceTA.setEditable(false);
+        traceTA.setPrefHeight(500);
+        
+        traceTA.appendText("Tempo total de simulação: " + this.simulation.getDuration());
+        traceTA.appendText("Quantidade de mensagens disparadas por telefones: (abaixo)");
+        this.simulation.getCentral().getAntennas().forEach((antenna) -> {
+            antenna.getPhones().forEach((phone) -> {
+                traceTA.appendText("Telefone " + phone.getIdentifier() + ":" + phone.getMessagesSentbox());
+            });
+        });
+        
+        grid.add(traceTA, 0, 0, 3, 3);
+        
+        Scene scene = new Scene(grid, 600, 600);
+        
+        Stage newStage = new Stage();
+        newStage.setX(this.welcomeStage.getX() - 350);
+        newStage.setY(this.welcomeStage.getY() - 100);
+        newStage.setTitle("Resultado da simulação");
+        newStage.setScene(scene);
+        newStage.show();
     }
     
     private void createTraceWindow() {
